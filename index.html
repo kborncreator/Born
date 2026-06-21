@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BORN — represents Zdeněk Konvalinka</title>
+<meta name="description" content="BORN represents the studio practice of Zdeněk Konvalinka — painting, sculpture, and textile. Studies and works available to live with.">
+
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#F7F6F2;
+    --ink:#232220;
+    --ink-soft:#8a877f;
+    --red:#9a2a1c;
+    --hair:#dcd9d2;
+    --display:'Clash Display','Hanken Grotesk',system-ui,sans-serif;
+    --utility:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Playfair Display',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+  body{
+    background:var(--paper);color:var(--ink);font-family:var(--utility);
+    font-weight:300;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;
+  }
+
+  /* --- header --- */
+  .bar{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:20px;flex-wrap:wrap;
+    padding:clamp(16px,2.8vw,26px) clamp(22px,4.5vw,60px);
+    border-bottom:1px solid var(--hair);
+    position:sticky;top:0;z-index:30;
+    background:rgba(247,246,242,.9);backdrop-filter:blur(8px);
+  }
+  .mark{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.04em;cursor:default}
+  .mark:focus-visible{outline:none}
+  .wm{display:inline-block;white-space:nowrap}
+  .born{color:var(--ink)}
+  .be{
+    color:var(--red);display:inline-block;max-width:0;opacity:0;
+    overflow:hidden;white-space:nowrap;vertical-align:baseline;
+    transition:max-width .45s cubic-bezier(.2,.7,.2,1),opacity .35s ease;
+  }
+  .mark:hover .be,.mark:focus-visible .be{max-width:2.6em;opacity:1}
+  .mark small{
+    display:block;font-family:var(--utility);font-weight:300;
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);margin-top:3px;
+  }
+  nav{display:flex;gap:clamp(14px,2.4vw,28px);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  nav a{
+    color:var(--ink-soft);text-decoration:none;
+    border-bottom:1px solid transparent;padding-bottom:2px;
+    transition:color .25s,border-color .25s;
+  }
+  nav a:hover,nav a:focus-visible{color:var(--ink);border-color:var(--ink);outline:none}
+
+  /* --- page wrap --- */
+  .wrap{padding:0 clamp(22px,4.5vw,60px) clamp(50px,10vh,90px);flex:1}
+
+  /* --- hero: two voices --- */
+  .hero{
+    min-height:80vh;display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(40px,8vw,120px);align-items:center;
+    padding:clamp(40px,8vh,100px) 0 clamp(30px,5vh,60px);
+  }
+  .statement{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(26px,4.2vw,58px);line-height:1.14;
+    letter-spacing:-.01em;max-width:15ch;
+  }
+  .left{align-self:start}
+  .right{align-self:end;justify-self:end;text-align:right;color:var(--red)}
+
+  /* per-word lean-to-italic */
+  .w{position:relative;display:inline-block}
+  .w .roman,.w .ital{display:inline-block;transition:opacity .4s cubic-bezier(.2,.7,.2,1)}
+  .w .ital{position:absolute;left:0;top:0;font-style:italic;white-space:nowrap;opacity:0}
+  .w:hover .roman{opacity:0}
+  .w:hover .ital{opacity:1}
+  .left .w .ital{color:var(--red)}
+  .right .w .ital{color:var(--ink)}
+
+  /* --- intro --- */
+  .intro{
+    padding:clamp(50px,9vh,110px) 0 clamp(30px,5vh,54px);
+    max-width:34ch;border-top:1px solid var(--hair);
+  }
+  .intro p{font-family:var(--serif);font-size:clamp(22px,3vw,38px);line-height:1.26}
+  .intro .sub{
+    font-family:var(--utility);font-weight:300;
+    font-size:clamp(14px,1.3vw,16px);color:var(--ink-soft);
+    line-height:1.65;max-width:46ch;margin-top:20px;
+  }
+
+  /* --- two systems --- */
+  .body{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(30px,6vw,90px);align-items:start;
+    border-top:1px solid var(--hair);padding-top:clamp(24px,3vw,38px);
+  }
+  .collabel{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:clamp(16px,2.5vw,28px);
+  }
+
+  /* movements (left) — morph to duality */
+  .morph{position:relative;display:inline-block}
+  .morph .rest,.morph .alt{display:inline-block;transition:opacity .45s cubic-bezier(.2,.7,.2,1)}
+  .morph .alt{
+    position:absolute;left:0;top:0;white-space:nowrap;
+    opacity:0;font-family:var(--serif);font-style:italic;color:var(--red);
+  }
+  .trigger:hover .rest,.trigger:focus-visible .rest{opacity:0}
+  .trigger:hover .alt,.trigger:focus-visible .alt{opacity:1}
+  .trigger:focus-visible{outline:none}
+  .mv{padding:clamp(14px,2vw,22px) 0;border-bottom:1px solid var(--hair)}
+  .mv .word{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(34px,5.4vw,72px);line-height:.98;letter-spacing:-.02em;
+  }
+  .mv .word .alt{font-size:clamp(30px,4.8vw,64px)}
+  .mv .g{font-size:13px;color:var(--ink-soft);margin-top:8px;max-width:30ch}
+
+  /* categories (right) */
+  .wet-entry{
+    display:block;text-decoration:none;color:inherit;
+    position:relative;cursor:pointer;
+    border-bottom:1px solid var(--hair);
+    padding-bottom:clamp(18px,3vw,30px);
+    margin-bottom:clamp(18px,3vw,30px);
+  }
+  .wet-entry:focus-visible{outline:none}
+  .wet-img-wrap{
+    position:relative;overflow:hidden;
+    aspect-ratio:3/4;max-height:62vh;
+    background:var(--hair);
+  }
+  .wet-img-wrap img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .7s cubic-bezier(.2,.7,.2,1);filter:saturate(.92);
+  }
+  .wet-entry:hover .wet-img-wrap img,
+  .wet-entry:focus-visible .wet-img-wrap img{transform:scale(1.025);filter:saturate(1)}
+
+  /* slash */
+  .slash{position:absolute;inset:0;z-index:2;pointer-events:none;display:flex;align-items:center;justify-content:center}
+  .slash::before{
+    content:"";display:block;width:115%;height:clamp(3px,.4vw,5px);background:var(--red);
+    transform:rotate(-4deg) scaleX(0);transform-origin:left center;
+    transition:transform .42s cubic-bezier(.2,.7,.2,1);
+  }
+  .wet-entry:hover .slash::before,
+  .wet-entry:focus-visible .slash::before{transform:rotate(-4deg) scaleX(1)}
+
+  /* overlay */
+  .wet-overlay{
+    position:absolute;inset:0;z-index:3;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:clamp(14px,2.5vw,26px);
+    background:linear-gradient(to top,rgba(35,34,32,.54) 0%,transparent 58%);
+    opacity:0;transition:opacity .4s ease;
+  }
+  .wet-entry:hover .wet-overlay,
+  .wet-entry:focus-visible .wet-overlay{opacity:1}
+  .wet-overlay .ow{
+    font-family:var(--display);font-weight:700;color:#F7F6F2;
+    font-size:clamp(28px,5vw,52px);letter-spacing:-.02em;line-height:.95;
+  }
+  .wet-overlay .od{font-family:var(--utility);font-size:13px;color:rgba(247,246,242,.8);margin-top:8px;line-height:1.5}
+  .wet-overlay .oe{font-family:var(--serif);font-style:italic;color:var(--red);font-size:15px;margin-top:10px;display:block}
+
+  .wet-cap{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:12px}
+  .wet-cap .wl{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.8vw,60px);letter-spacing:-.02em;line-height:1}
+  .wet-cap .wa{font-size:13px;color:var(--ink-soft);font-style:italic;font-family:var(--serif);align-self:flex-end;padding-bottom:4px}
+
+  .cat{display:block;text-decoration:none;color:var(--ink);padding:clamp(14px,2vw,22px) 0;border-bottom:1px solid var(--hair);cursor:pointer}
+  .cat:focus-visible{outline:none}
+  .cat .cw{
+    position:relative;display:inline-block;
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(34px,5.4vw,72px);line-height:.96;letter-spacing:-.025em;
+  }
+  .cat .cw::after{
+    content:"";position:absolute;left:-2%;top:50%;width:104%;height:clamp(2px,.35vw,5px);background:var(--red);
+    transform:rotate(-3deg) scaleX(0);transform-origin:left center;
+    transition:transform .42s cubic-bezier(.2,.7,.2,1);
+  }
+  .cat:hover .cw::after,.cat:focus-visible .cw::after{transform:rotate(-3deg) scaleX(1)}
+  .cat .desc{
+    display:block;max-height:0;opacity:0;overflow:hidden;
+    font-size:14px;color:var(--ink-soft);
+    transition:max-height .45s ease,opacity .4s ease,margin-top .4s ease;
+  }
+  .cat:hover .desc,.cat:focus-visible .desc{max-height:5em;opacity:1;margin-top:12px}
+  .cat .enter{font-family:var(--serif);font-style:italic;color:var(--red);white-space:nowrap}
+
+  /* --- footer --- */
+  footer{
+    border-top:1px solid var(--hair);
+    padding:clamp(28px,4vh,52px) clamp(22px,4.5vw,60px);
+    display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    font-size:12px;letter-spacing:.04em;color:var(--ink-soft);
+  }
+
+  @media (max-width:780px){
+    .hero{grid-template-columns:1fr;min-height:auto;gap:clamp(40px,10vh,70px)}
+    .right{align-self:auto;justify-self:start;text-align:left}
+    .body{grid-template-columns:1fr;gap:clamp(36px,9vh,60px)}
+    .wet-img-wrap{max-height:75vw}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .w .roman,.w .ital,
+    .morph .rest,.morph .alt,
+    .be,.cat .cw::after,.cat .desc,
+    .wet-img-wrap img,.wet-overlay,.slash::before{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="mark" tabindex="0">
+    <span class="wm"><span class="be">Be&nbsp;</span><span class="born">BORN</span></span>
+    <small>Represents Zdeněk Konvalinka</small>
+  </div>
+  <nav>
+    <a href="wet.html">Wet</a>
+    <a href="studies.html">Studies</a>
+    <a href="works.html">Works</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- two-voice hero -->
+  <section class="hero">
+    <p class="statement left">
+      <span class="w"><span class="roman">A</span><span class="ital">A</span></span>
+      <span class="w"><span class="roman">dialogue</span><span class="ital">dialogue</span></span>
+      <span class="w"><span class="roman">between</span><span class="ital">between</span></span>
+      <span class="w"><span class="roman">the</span><span class="ital">the</span></span>
+      <span class="w"><span class="roman">painted</span><span class="ital">painted</span></span>
+      <span class="w"><span class="roman">surface</span><span class="ital">surface</span></span>
+      <span class="w"><span class="roman">and</span><span class="ital">and</span></span>
+      <span class="w"><span class="roman">the</span><span class="ital">the</span></span>
+      <span class="w"><span class="roman">object</span><span class="ital">object</span></span>
+      <span class="w"><span class="roman">that</span><span class="ital">that</span></span>
+      <span class="w"><span class="roman">escapes</span><span class="ital">escapes</span></span>
+      <span class="w"><span class="roman">it.</span><span class="ital">it.</span></span>
+    </p>
+    <p class="statement right">
+      <span class="w"><span class="roman">And</span><span class="ital">And</span></span>
+      <span class="w"><span class="roman">what</span><span class="ital">what</span></span>
+      <span class="w"><span class="roman">breathes</span><span class="ital">breathes</span></span>
+      <span class="w"><span class="roman">between.</span><span class="ital">between.</span></span>
+    </p>
+  </section>
+
+  <!-- entity statement -->
+  <section class="intro">
+    <p>Coming to art is hard. So begin slowly.</p>
+    <p class="sub">A study arrives, lives in your rooms for a season or a year, and asks nothing of you. On one side, how a work comes to you. On the other, the work itself.</p>
+  </section>
+
+  <!-- two systems -->
+  <section class="body">
+
+    <!-- LEFT: the arc -->
+    <div>
+      <div class="collabel">The arc — how it comes to you</div>
+      <div class="mv trigger morph" tabindex="0">
+        <div class="word"><span class="rest">Born</span><span class="alt">be born</span></div>
+        <div class="g">A work, and the bond with it, begins.</div>
+      </div>
+      <div class="mv trigger morph" tabindex="0">
+        <div class="word"><span class="rest">Move</span><span class="alt">be moved</span></div>
+        <div class="g">It ships — and if it's right, moves you.</div>
+      </div>
+      <div class="mv trigger morph" tabindex="0">
+        <div class="word"><span class="rest">Live</span><span class="alt">live with</span></div>
+        <div class="g">It stays a while. The rest takes care of itself.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: the work -->
+    <div>
+      <div class="collabel">The work — what is held here</div>
+
+      <a class="wet-entry" href="wet.html">
+        <div class="wet-img-wrap">
+          <img
+            src="images/wet/w-001-study-brushstrokes-2024.jpg"
+            alt="Zdeněk Konvalinka — study, oil and acrylic on board, 2024">
+          <div class="slash"></div>
+          <div class="wet-overlay">
+            <span class="ow">Wet</span>
+            <span class="od">New · Now · Fresh — straight from the studio, still becoming.</span>
+            <span class="oe">Enter the collection →</span>
+          </div>
+        </div>
+        <div class="wet-cap">
+          <span class="wl">Wet</span>
+          <span class="wa">New · Now · Fresh</span>
+        </div>
+      </a>
+
+      <a class="cat" href="studies.html">
+        <span class="cw">Studies</span>
+        <span class="desc">Exploratory, smaller — the works offered to live with. <span class="enter">Enter →</span></span>
+      </a>
+
+      <a class="cat" href="works.html">
+        <span class="cw">Works</span>
+        <span class="desc">Resolved, finished — the fully arrived pieces. <span class="enter">Enter →</span></span>
+      </a>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  <span>BORN — represents Zdeněk Konvalinka, Prague</span>
+  <span>Each work signed · Documented · Certificate on acquisition</span>
+</footer>
+
+</body>
+</html>
