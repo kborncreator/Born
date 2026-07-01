@@ -26,7 +26,7 @@
   .phil-single{display:flex;align-items:center;justify-content:center}
   .phil-big-wrap{
     font-family:'Clash Display',system-ui,sans-serif;
-    font-weight:700;font-size:130px;
+    font-weight:700;font-size:clamp(40px, 11vw, 130px);
     font-style:italic;
     line-height:.95;letter-spacing:-.025em;
     display:inline-flex;align-items:baseline;
@@ -38,9 +38,15 @@
     color:var(--red);
     transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .38s ease;
   }
-  .phil-a-group:hover .h{max-width:4em;opacity:1}
+  .phil-a-group:hover .h{max-width:6em;opacity:1;padding-right:.08em}
   .phil-big-wrap .bk{color:var(--ink)}
   .phil-big-wrap .bk-space{display:inline-block;width:.32em}
+  .phil-big-wrap .s-reveal{
+    display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
+    color:var(--ink);
+    transition:max-width .42s cubic-bezier(.2,.7,.2,1),opacity .35s ease;
+  }
+  .phil-p-group:hover .s-reveal{max-width:1em;opacity:1}
   /* blue stroke entry size for v9 */
   .landing{
     position:fixed;inset:0;z-index:100;
@@ -48,6 +54,7 @@
     display:flex;flex-direction:column;
     align-items:center;justify-content:center;
     gap:clamp(24px,5vh,52px);
+    padding:0 6vw;
     transition:opacity 1.7s ease, visibility 1.7s ease;
   }
   .landing.gone{opacity:0;visibility:hidden;pointer-events:none}
@@ -311,6 +318,23 @@
     transition:color .25s ease;
   }
   .hamburger-menu a:hover{color:var(--red)}
+
+  .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}}
+  .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}}
+/* ── FOOTER ── */
+  .site-footer{border-top:1px solid var(--hair);padding:clamp(16px,2.5vh,28px) 0 clamp(12px,2vh,20px);margin-top:auto}
+  .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:16px}
+  .footer-copy{font-size:11px;color:var(--ink-soft);letter-spacing:.03em}
+  .footer-centre{display:flex;gap:20px;align-items:center;justify-content:center}
+  .footer-centre a{font-size:12px;letter-spacing:.04em;color:var(--ink);text-decoration:none;transition:color .25s;white-space:nowrap}
+  .footer-centre a:hover{color:var(--red)}
+  .footer-email{display:flex;align-items:center;color:var(--ink) !important;transition:color .25s}
+  .footer-email:hover{color:var(--red) !important}
+  .footer-email svg{display:block}
+  .footer-legal{display:flex;gap:16px;justify-content:flex-end;flex-wrap:wrap}
+  .footer-legal a{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .25s;white-space:nowrap}
+  .footer-legal a:hover{color:var(--ink)}
+  @media(max-width:700px){.footer-inner{grid-template-columns:1fr;gap:10px}
 </style>
 </head>
 <body>
@@ -320,7 +344,7 @@
 
     <div class="phil-single">
       <div class="phil-big-wrap">
-          <span class="phil-a-group"><span class="bk">A</span><span class="h">rtist</span></span><span class="bk-space">&thinsp;</span><span class="bk">P</span><span style="color:var(--red)">ositions</span>
+          <span class="phil-a-group"><span class="bk">A</span><span class="h">rtist</span></span><span class="bk-space">&thinsp;</span><span class="phil-p-group"><span class="bk">P</span><span style="color:var(--red)">osition</span><span class="s-reveal">s</span></span>
         </div>
     </div>
 
@@ -385,11 +409,27 @@
     </section>
 
 
-    <footer>
-      <span>AP · Artist Positions · Prague</span>
-      <span>Each work signed · Documented · Certificate on acquisition</span>
-    </footer>
+    
 
+  
+<footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-copy">
+        © 2026 Artist Position / Zdeňek Konvalina. All rights reserved.
+      </div>
+      <div class="footer-centre">
+        <a href="https://www.konvalina.art" target="_blank" rel="noopener">www.konvalina.art</a>
+        <a href="https://www.instagram.com/zdenekkonvalina" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:konvalina@me.com" class="footer-email" aria-label="Email">
+          <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="14" height="11" rx="1.5" stroke="currentColor"/><path d="M1 1L7.5 7L14 1" stroke="currentColor" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+      <div class="footer-legal">
+        <a href="legal.html#gdpr">GDPR</a>
+        <a href="legal.html#terms">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </footer>
   </div>
 
 <script>
