@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fresh — AP · Artist Positions</title>
+<title>Objects — AP · Artist Positions</title>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
@@ -226,10 +226,10 @@
   .page-head h1{font-family:'Clash Display',sans-serif;font-weight:700;
     font-size:clamp(36px,5vw,68px);letter-spacing:-.025em;line-height:.94;
     display:inline-block;
-    transform:skewX(30deg);transform-origin:left bottom;
-    transition:transform .5s cubic-bezier(.2,.7,.2,1);
+    transform:scaleY(1);transform-origin:bottom left;
+    transition:transform .45s cubic-bezier(.2,.7,.2,1);
     color:var(--ink)}
-  .page-head:hover h1{transform:skewX(0deg)}
+  .page-head:hover h1{transform:scaleY(1.35)}
   .overlay{display:none}
   .overlay.open{display:block}
 
@@ -271,8 +271,8 @@
       </div>
     </header>
   <div class="page-head">
-    <h1>Fresh</h1>
-    <p class="page-intro">New · Now — straight from the studio, <em>still becoming.</em><br>Works offered while they still carry the heat of making.</p>
+    <h1>Objects</h1>
+    <p class="page-intro">Detached · dimensional — <em>objects breaking free of the canvas.</em><br>Exploratory pieces becoming something on their own.</p>
   </div>
   <div class="works-grid" id="grid"></div>
 
