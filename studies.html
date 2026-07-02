@@ -241,9 +241,9 @@
     content:'';
     position:absolute;
     inset:calc(var(--frame-w) * -1);
-    background-image:url('images/border-frame-red-brushstroke.png');
-    background-size:100% 100%;
-    background-repeat:no-repeat;
+    border-style:solid;
+    border-width:var(--frame-w);
+    border-image:url('images/border-frame-red-brushstroke.png') 300 stretch;
     pointer-events:none;
     z-index:1;
   }
