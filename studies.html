@@ -152,15 +152,45 @@
     gap:52px;align-items:start;
   }
   .ov-left{width:100%}
-  .ov-main-img{width:100%;aspect-ratio:3/4;background:var(--tile);border:1px solid var(--hair);overflow:hidden}
-  .ov-main-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .ov-main-img{position:relative;width:100%;aspect-ratio:3/4;background:var(--tile);border:1px solid var(--hair);overflow:hidden}
+  .ov-main-img img{width:100%;height:100%;object-fit:cover;display:block;cursor:url('images/cursor-brushstroke.png') 32 32,zoom-in}
   .ov-thumbs{display:flex;gap:6px;margin-top:7px}
   .ov-thumb{
     flex:0 0 calc(25% - 5px);aspect-ratio:1;background:var(--tile);border:1px solid var(--hair);overflow:hidden;
     cursor:url('images/cursor-brushstroke.png') 32 32,auto;transition:border-color .2s;
   }
   .ov-thumb:hover{border-color:var(--ink)}
+  .ov-thumb.active{border-color:var(--red)}
   .ov-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* image nav arrows (overlay main image + lightbox) */
+  .ov-nav-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(247,246,242,.82);border:1px solid var(--hair);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-size:20px;line-height:1;color:var(--ink);padding:0;
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+    opacity:0;transition:opacity .25s ease,background .25s ease,color .25s ease;
+  }
+  .ov-main-img:hover .ov-nav-arrow{opacity:1}
+  .ov-nav-arrow:hover{background:var(--ink);color:var(--paper)}
+  .ov-nav-prev{left:10px}
+  .ov-nav-next{right:10px}
+  @media(max-width:700px){.ov-main-img .ov-nav-arrow{opacity:1}}
+
+  /* lightbox */
+  .lightbox{position:fixed;inset:0;z-index:120;background:rgba(35,34,32,.94);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+  .lightbox.open{opacity:1;visibility:visible}
+  .lb-img{max-width:88vw;max-height:86vh;object-fit:contain;display:block;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .lb-close{position:absolute;top:20px;right:28px;background:none;border:0;padding:0;cursor:url('images/cursor-brushstroke.png') 32 32,auto}
+  .lb-close img{width:38px;height:auto;display:block;filter:invert(1);opacity:.9;transition:opacity .2s,transform .25s}
+  .lb-close:hover img{opacity:1;transform:scale(1.12) rotate(-5deg)}
+  .lightbox .ov-nav-arrow{position:fixed;width:48px;height:48px;background:rgba(247,246,242,.15);border-color:rgba(247,246,242,.4);color:var(--paper);opacity:1}
+  .lightbox .ov-nav-arrow:hover{background:var(--paper);color:var(--ink)}
+  .lb-prev{left:24px}
+  .lb-next{right:24px}
+  @media(max-width:700px){.lb-prev{left:8px}.lb-next{right:8px}.lb-close{top:12px;right:14px}}
   .ov-info{min-width:0;padding-top:2px}
   .ov-title{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,36px);letter-spacing:-.02em;line-height:.96}
   .ov-year{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--ink-soft);margin-top:5px}
@@ -303,7 +333,11 @@
   </div>
   <div class="ov-inner">
     <div class="ov-left">
-      <div class="ov-main-img"><img id="ovImg" src="" alt=""></div>
+      <div class="ov-main-img">
+        <img id="ovImg" src="" alt="">
+        <button class="ov-nav-arrow ov-nav-prev" id="ovPrev" aria-label="Previous image">&#8249;</button>
+        <button class="ov-nav-arrow ov-nav-next" id="ovNext" aria-label="Next image">&#8250;</button>
+      </div>
       <div class="ov-thumbs" id="ovThumbs"></div>
     </div>
     <div class="ov-info">
@@ -324,11 +358,11 @@
                 <p class="ov-panel-statement">A short note is enough — I'll reply directly.</p>
                 <div class="ov-field">
                   <label>Name</label>
-                  <input type="text">
+                  <input type="text" autocomplete="off">
                 </div>
                 <div class="ov-field">
                   <label>Email</label>
-                  <input type="email">
+                  <input type="email" autocomplete="off">
                 </div>
                 <div class="ov-field">
                   <label>Message (optional)</label>
@@ -348,21 +382,21 @@
                 <p class="ov-panel-statement">I'll follow up with a payment request and shipping details, by hand.</p>
                 <div class="ov-field">
                   <label>Name</label>
-                  <input type="text">
+                  <input type="text" autocomplete="off">
                 </div>
                 <div class="ov-row2">
                   <div class="ov-field">
                     <label>Email</label>
-                    <input type="email">
+                    <input type="email" autocomplete="off">
                   </div>
                   <div class="ov-field">
                     <label>Phone</label>
-                    <input type="text">
+                    <input type="text" autocomplete="off">
                   </div>
                 </div>
                 <div class="ov-field">
                   <label>Shipping address</label>
-                  <input type="text">
+                  <input type="text" autocomplete="off">
                 </div>
                 <button class="ov-submit">Request reservation</button>
               </div>
@@ -373,6 +407,14 @@
       </div>
     </div>
   </div>
+</div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lbClose" aria-label="Close">
+    <img src="images/closeX.png" alt="Close">
+  </button>
+  <button class="ov-nav-arrow lb-prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="ov-nav-arrow lb-next" id="lbNext" aria-label="Next image">&#8250;</button>
 </div>
 <script>
   const CAT='Studies · AP Artist Positions';
@@ -396,8 +438,47 @@
   const overlay=document.getElementById('overlay'),
         ovImg=document.getElementById('ovImg'),
         ovThumbs=document.getElementById('ovThumbs'),
-        ovAbout=document.getElementById('ovAbout');
-  let lastFocus=null;
+        ovAbout=document.getElementById('ovAbout'),
+        ovPrev=document.getElementById('ovPrev'),
+        ovNext=document.getElementById('ovNext'),
+        lightbox=document.getElementById('lightbox'),
+        lbImg=document.getElementById('lbImg'),
+        lbClose=document.getElementById('lbClose'),
+        lbPrev=document.getElementById('lbPrev'),
+        lbNext=document.getElementById('lbNext');
+  let lastFocus=null, lbLastFocus=null;
+  let currentImages=[], currentIndex=0;
+
+  function showImage(idx){
+    if(!currentImages.length) return;
+    currentIndex=(idx+currentImages.length)%currentImages.length;
+    const src=currentImages[currentIndex];
+    ovImg.src=src;
+    if(lightbox.classList.contains('open')) lbImg.src=src;
+    ovThumbs.querySelectorAll('.ov-thumb').forEach((t,ti)=>{
+      t.classList.toggle('active', ti===currentIndex-1);
+    });
+  }
+  function openLightbox(){
+    if(!currentImages.length) return;
+    lbImg.src=currentImages[currentIndex];
+    lbLastFocus=document.activeElement;
+    lightbox.classList.add('open');
+    document.body.style.overflow='hidden';
+    lbClose.focus();
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    document.body.style.overflow=overlay.classList.contains('open')?'hidden':'';
+    if(lbLastFocus) lbLastFocus.focus();
+  }
+  ovImg.addEventListener('click',openLightbox);
+  ovPrev.addEventListener('click',()=>showImage(currentIndex-1));
+  ovNext.addEventListener('click',()=>showImage(currentIndex+1));
+  lbClose.addEventListener('click',closeLightbox);
+  lbPrev.addEventListener('click',()=>showImage(currentIndex-1));
+  lbNext.addEventListener('click',()=>showImage(currentIndex+1));
+  lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
 
   function wireAccordion(btnId, panelId, otherBtnId, otherPanelId) {
     var btn = document.getElementById(btnId);
@@ -414,14 +495,18 @@
   wireAccordion('btnReserve','panelReserve','btnInquire','panelInquire');
 
   function openWork(w,i,cat){
+    currentImages=[w.img,...(w.thumbs||[])].filter(Boolean);
+    currentIndex=0;
+    const hasNav=currentImages.length>1;
+    ovPrev.style.display=ovNext.style.display=hasNav?'flex':'none';
     if(w.img){ovImg.src=w.img;ovImg.style.display='block';ovImg.parentElement.style.background='';}
     else{ovImg.src='';ovImg.style.display='none';ovImg.parentElement.style.background=tiles[i%4];}
     ovImg.alt=w.title;
     ovThumbs.innerHTML='';
-    (w.thumbs||[]).forEach(src=>{
+    (w.thumbs||[]).forEach((src,ti)=>{
       const d=document.createElement('div');d.className='ov-thumb';
       d.innerHTML=`<img src="${src}" alt="">`;
-      d.addEventListener('click',()=>{ovImg.src=src;});
+      d.addEventListener('click',()=>showImage(ti+1));
       ovThumbs.appendChild(d);
     });
     document.getElementById('ovTitle').textContent=w.title;
@@ -453,7 +538,17 @@
   }
   document.getElementById('ovClose').addEventListener('click',closeOv);
   overlay.addEventListener('click',e=>{if(e.target===overlay)closeOv();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeOv();});
+  document.addEventListener('keydown',e=>{
+    if(lightbox.classList.contains('open')){
+      if(e.key==='Escape')closeLightbox();
+      else if(e.key==='ArrowLeft')showImage(currentIndex-1);
+      else if(e.key==='ArrowRight')showImage(currentIndex+1);
+    }else if(overlay.classList.contains('open')){
+      if(e.key==='Escape')closeOv();
+      else if(e.key==='ArrowLeft')showImage(currentIndex-1);
+      else if(e.key==='ArrowRight')showImage(currentIndex+1);
+    }
+  });
 </script>
 
 </body></html>
