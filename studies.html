@@ -232,11 +232,20 @@
   .ov-panel.open{max-height:900px}
   .ov-panel-inner{
     --frame-w:44px;
+    position:relative;
     margin:6px 0 20px;
-    border-style:solid;border-width:var(--frame-w);
-    border-image:url('images/border-frame-red-brushstroke.png') 300 stretch;
     padding:22px 18px;
     display:flex;flex-direction:column;
+  }
+  .ov-panel-inner::before{
+    content:'';
+    position:absolute;
+    inset:calc(var(--frame-w) * -1);
+    background-image:url('images/border-frame-red-brushstroke.png');
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    pointer-events:none;
+    z-index:1;
   }
   .ov-panel-statement{font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.5;color:var(--ink);margin:0 0 14px;max-width:32ch}
   .ov-field{margin-bottom:11px}
