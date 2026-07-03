@@ -132,7 +132,6 @@
   .ap-letter:hover .dot{opacity:0}
   .mark-sub{display:block;margin-top:4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-style:italic}
 
-  nav{display:flex;gap:24px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
   nav a{
     color:var(--ink-soft);text-decoration:none;
     border-bottom:1px solid transparent;padding-bottom:2px;
@@ -147,8 +146,8 @@
   }
   .phil-col{
     display:flex;flex-direction:column;
-    justify-content:space-between;align-items:flex-start;
-    gap:0;
+    justify-content:center;align-items:flex-start;
+    gap:clamp(24px,4vh,48px);
   }
   .phil-cats-top{
     display:flex;flex-direction:column;
@@ -188,11 +187,11 @@
   }
   .phil-col .phil{font-size:clamp(40px,5vw,70px)}
 
-  .artwork-col{display:flex;flex-direction:column;justify-content:center}
+  .artwork-col{display:flex;flex-direction:column;justify-content:center;align-items:center}
   .artwork-frame{
     display:block;
     position:relative;overflow:hidden;
-    width:100%;aspect-ratio:3/4;max-height:550px;
+    width:100%;max-width:420px;aspect-ratio:3/4;
     background:var(--hair);
   }
   .artwork-frame img{width:100%;height:100%;object-fit:cover;display:block}
@@ -299,6 +298,30 @@
   }
   .hamburger-menu a:hover{color:var(--red)}
 
+  /* nav hover: per-link animation, matched to works.html / fresh.html */
+  .hamburger-menu a{
+    transition:color .25s ease,font-style .4s ease,transform .4s ease;
+    display:block;
+  }
+  .hamburger-menu a:hover{
+    color:var(--red);
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+  }
+  /* Fresh: skewed left → straight on hover */
+  a[href="fresh.html"]{transform:skewX(20deg);display:inline-block}
+  a[href="fresh.html"]:hover{transform:skewX(0deg)}
+  /* Studies: straight → italic on hover */
+  a[href="studies.html"]{font-style:normal}
+  a[href="studies.html"]:hover{font-style:italic}
+  /* Works: italic → straight on hover */
+  a[href="works.html"]{font-style:italic}
+  a[href="works.html"]:hover{font-style:normal}
+  /* Objects: grows taller on hover */
+  a[href="objects.html"]{display:inline-block;transform:scaleY(1);transform-origin:bottom}
+  a[href="objects.html"]:hover{transform:scaleY(1.35)}
+  /* About: no treatment */
+  a[href="about.html"]{font-style:normal}
+
   .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}}
   .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}}
 /* ── FOOTER ── */
@@ -352,6 +375,7 @@
           <a href="fresh.html">Fresh</a>
           <a href="studies.html">Studies</a>
           <a href="works.html">Works</a>
+          <a href="objects.html">Objects</a>
           <a href="about.html" style="text-align:center">AP?</a>
         </nav>
       </div>
@@ -363,6 +387,7 @@
           <a class="cat" href="fresh.html"><span class="cw">Fresh</span><span class="desc">New · Now — straight from the studio, still becoming. <span class="enter">Enter →</span></span></a>
           <a class="cat" href="studies.html"><span class="cw">Studies</span><span class="desc">Exploratory, smaller — the works offered to live with. <span class="enter">Enter →</span></span></a>
           <a class="cat" href="works.html"><span class="cw">Works</span><span class="desc">Resolved, finished — the fully arrived pieces. <span class="enter">Enter →</span></span></a>
+          <a class="cat" href="objects.html"><span class="cw">Objects</span><span class="desc">Detached · dimensional — objects breaking free of the canvas. <span class="enter">Enter →</span></span></a>
         </div>
         <div class="phil-below">
           <div class="phil"><span class="h">be</span><span class="bk">Move</span><span class="h">d</span></div>
