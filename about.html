@@ -12,7 +12,18 @@
   html,body{background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
   body{cursor:url('images/cursor-brushstroke.png') 32 32,auto}
 
-  .bar{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:16px}
+  .bar{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:16px;position:relative}
+  .header-home{
+    position:absolute;left:50%;top:0;
+    transform:translateX(-50%);
+    display:flex;
+    cursor: url('images/cursor-brushstroke.png') 32 32, pointer;
+  }
+  .header-home img{
+    width:56px;display:block;object-fit:contain;
+    transition:transform .35s ease,opacity .3s ease;
+  }
+  .header-home:hover img{transform:scale(1.12) translateY(-2px);opacity:.85}
   .ap-wrap{
     display:inline-flex;align-items:baseline;
     font-family:'Clash Display',system-ui,sans-serif;font-weight:700;
@@ -310,6 +321,9 @@
         </a>
         <span class="mark-sub">Represents Zdenek Konvalina</span>
       </div>
+      <a href="index.html" class="header-home" aria-label="Back to homepage">
+        <img src="images/hamburger-menu-icon.png" alt="Home">
+      </a>
       <div class="hamburger" tabindex="0" aria-label="Menu">
         <img class="hamburger-img" src="images/door-entry-stroke.png" alt="Menu">
         <nav class="hamburger-menu">
