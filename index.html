@@ -122,14 +122,14 @@
   }
   .ap-letter{position:relative;display:inline-flex;align-items:baseline}
   .ap-letter .single{color:var(--ink)}
-  .ap-letter .dot{font-size:13px;color:var(--hair);margin:0 1px}
+  .ap-gap{display:inline-block;width:.16em}
   .ap-letter .xpand{
-    display:inline-block;overflow:hidden;max-width:0;opacity:0;white-space:nowrap;
-    color:var(--red);font-size:28px;
-    transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease;
+    display:inline-block;white-space:nowrap;
+    color:var(--ink);font-size:28px;
+    transition:color .3s ease;
   }
-  .ap-letter:hover .xpand{max-width:5em;opacity:1}
-  .ap-letter:hover .dot{opacity:0}
+  .ap-wrap:hover .xpand{color:var(--red)}
+  .ap-letter .s-black{color:var(--ink)}
   .mark-sub{display:block;margin-top:4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-style:italic}
 
 
@@ -159,20 +159,11 @@
     font-size:clamp(28px,4vw,60px);
     line-height:.96;letter-spacing:-.025em;
   }
-  .phil-cats-top .cat .cw::after{
-    content:"";position:absolute;left:-2%;top:50%;width:104%;
-    height:clamp(2px,.35vw,5px);background:var(--red);
-    transform:rotate(-3deg) scaleX(0);transform-origin:left center;
-    transition:transform .42s cubic-bezier(.2,.7,.2,1);
-  }
-  .phil-cats-top .cat:hover .cw::after{transform:rotate(-3deg) scaleX(1)}
   .phil-cats-top .cat .desc{
-    display:block;max-height:0;opacity:0;overflow:hidden;
+    display:block;
     font-size:12px;color:var(--ink-soft);
-    transition:max-height .45s ease,opacity .4s ease,margin-top .4s ease;
+    margin-top:6px;
   }
-  .phil-cats-top .cat:hover .desc{max-height:5em;opacity:1;margin-top:6px}
-  .phil-cats-top .cat .enter{font-family:'Playfair Display',Georgia,serif;font-style:italic;color:var(--red);white-space:nowrap}
   .phil-below{
     display:flex;flex-direction:column;
     gap:clamp(8px,1.5vh,18px);
@@ -221,20 +212,6 @@
     font-size:clamp(28px,4vw,60px);
     line-height:.96;letter-spacing:-.025em;
   }
-  .cat .cw::after{
-    content:"";position:absolute;left:-2%;top:50%;width:104%;
-    height:clamp(2px,.35vw,5px);background:var(--red);
-    transform:rotate(-3deg) scaleX(0);transform-origin:left center;
-    transition:transform .42s cubic-bezier(.2,.7,.2,1);
-  }
-  .cat:hover .cw::after,.cat:focus-visible .cw::after{transform:rotate(-3deg) scaleX(1)}
-  .cat .desc{
-    display:block;max-height:0;opacity:0;overflow:hidden;
-    font-size:14px;color:var(--ink-soft);
-    transition:max-height .45s ease,opacity .4s ease,margin-top .4s ease;
-  }
-  .cat:hover .desc,.cat:focus-visible .desc{max-height:5em;opacity:1;margin-top:10px}
-  .cat .enter{font-family:'Playfair Display',Georgia,serif;font-style:italic;color:var(--red);white-space:nowrap}
 
   /* ── hamburger menu ── */
   .hamburger{
@@ -301,9 +278,9 @@
   /* Works: italic → straight on hover */
   a[href="works.html"]{font-style:italic}
   a[href="works.html"]:hover{font-style:normal}
-  /* Objects: grows taller on hover */
+  /* Objects: grows taller on hover (reduced so it stays clear of the divider) */
   a[href="objects.html"]{display:inline-block;transform:scaleY(1);transform-origin:bottom}
-  a[href="objects.html"]:hover{transform:scaleY(1.35)}
+  a[href="objects.html"]:hover{transform:scaleY(1.14)}
   /* About: no treatment */
   a[href="about.html"]{font-style:normal}
 
@@ -356,8 +333,7 @@
     <header class="bar">
       <div>
         <a href="index.html" class="ap-wrap" style="text-decoration:none">
-          <span class="ap-letter"><span class="single">A</span><span class="xpand">rtist</span><span class="dot">.</span></span>
-          <span class="ap-letter"><span class="single">P</span><span class="xpand">ositions</span><span class="dot">.</span></span>
+          <span class="ap-letter"><span class="single">A</span><span class="xpand">rtist</span></span><span class="ap-gap"></span><span class="ap-letter"><span class="single">P</span><span class="xpand">osition</span><span class="s-black">s</span></span>
         </a>
         <span class="mark-sub">Represents Zdenek Konvalina</span>
       </div>
@@ -376,10 +352,10 @@
     <section class="main-grid">
       <div class="phil-col">
         <div class="phil-cats-top">
-          <a class="cat" href="fresh.html"><span class="cw">Fresh</span><span class="desc">New · Now — straight from the studio, still becoming. <span class="enter">Enter →</span></span></a>
-          <a class="cat" href="studies.html"><span class="cw">Studies</span><span class="desc">Exploratory, smaller — the works offered to live with. <span class="enter">Enter →</span></span></a>
-          <a class="cat" href="works.html"><span class="cw">Works</span><span class="desc">Resolved, finished — the fully arrived pieces. <span class="enter">Enter →</span></span></a>
-          <a class="cat" href="objects.html"><span class="cw">Objects</span><span class="desc">Detached · dimensional — objects breaking free of the canvas. <span class="enter">Enter →</span></span></a>
+          <a class="cat" href="fresh.html"><span class="cw">Fresh</span><span class="desc">New · Now — straight from the studio, still becoming.</span></a>
+          <a class="cat" href="studies.html"><span class="cw">Studies</span><span class="desc">Exploratory, smaller — the works offered to live with.</span></a>
+          <a class="cat" href="works.html"><span class="cw">Works</span><span class="desc">Resolved, finished — the fully arrived pieces.</span></a>
+          <a class="cat" href="objects.html"><span class="cw">objects</span><span class="desc">Detached · dimensional — objects breaking free of the canvas.</span></a>
         </div>
         <div class="phil-below">
           <div class="phil"><span class="h">be</span><span class="bk">Move</span><span class="h">d</span></div>
