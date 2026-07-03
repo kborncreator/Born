@@ -227,6 +227,8 @@
   .ov-action-btn:hover,.ov-action-btn.open{color:var(--red)}
   .ov-plus{
     width:26px;height:26px;flex-shrink:0;margin-left:12px;
+    background-image:url('images/plus-icon-brushstrodke.png');background-size:contain;background-repeat:no-repeat;background-position:center;
+    display:inline-block;
     transition:transform .25s ease,opacity .25s ease;
   }
   .ov-action-btn:hover .ov-plus{opacity:.75}
@@ -382,7 +384,7 @@
           <div class="ov-action-row">
             <button class="ov-action-btn" id="btnInquire">
               <span>Inquire to acquire</span>
-              <img class="ov-plus" src="images/plus-icon-brushstroke.png" alt="">
+              <span class="ov-plus" aria-hidden="true"></span>
             </button>
             <div class="ov-panel" id="panelInquire">
               <div class="ov-panel-inner">
@@ -406,7 +408,7 @@
           <div class="ov-action-row">
             <button class="ov-action-btn" id="btnReserve">
               <span>Reserve to Acquire</span>
-              <img class="ov-plus" src="images/plus-icon-brushstroke.png" alt="">
+              <span class="ov-plus" aria-hidden="true"></span>
             </button>
             <div class="ov-panel" id="panelReserve">
               <div class="ov-panel-inner">
@@ -534,8 +536,10 @@
     works.forEach(function(w, i) {
       var btn = document.createElement('button');
       btn.className = 'work-card';
+      var bg = w.img ? '' : ('background:' + tiles[i % 4]);
       btn.innerHTML =
-        '<div class="frame" style="background:' + tiles[i % 4] + '">' +
+        '<div class="frame" style="' + bg + '">' +
+        (w.img ? '<img src="' + w.img + '" alt="' + w.title + '">' : '') +
         '<div class="frame-enter">View work</div></div>' +
         '<div class="cap"><span class="t">' + w.title + '</span><span class="y">' + w.year + '</span></div>' +
         '<div class="cap2">' + w.medium + '</div>';
