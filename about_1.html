@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP? — Artist Positions</title>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+
+  :root{--paper:#F7F6F2;--ink:#232220;--ink-soft:#8a877f;--red:#9a2a1c;--hair:#dcd9d2;--tile:#ece9e2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+  body{cursor:url('images/cursor-brushstroke.png') 32 32,auto}
+
+  .bar{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:16px;position:relative}
+  .header-home{
+    position:absolute;left:50%;top:0;
+    transform:translateX(-50%);
+    display:flex;
+    cursor: url('images/cursor-brushstroke.png') 32 32, pointer;
+  }
+  .header-home img{
+    width:56px;display:block;object-fit:contain;
+    transition:transform .35s ease,opacity .3s ease;
+  }
+  .header-home:hover img{transform:scale(1.12) translateY(-2px);opacity:.85}
+  .ap-wrap{
+    display:inline-flex;align-items:baseline;
+    font-family:'Clash Display',system-ui,sans-serif;font-weight:700;
+    font-size:28px;letter-spacing:-.01em;
+    cursor: url('images/cursor-brushstroke.png') 32 32, auto;
+  }
+  .ap-letter{position:relative;display:inline-flex;align-items:baseline}
+  .ap-letter .single{color:var(--ink)}
+  .ap-letter .dot{font-size:13px;color:var(--hair);margin:0 1px}
+  .ap-letter .xpand{
+    display:inline-block;overflow:hidden;max-width:0;opacity:0;white-space:nowrap;
+    color:var(--red);font-size:28px;
+    transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease;
+  }
+  .ap-letter:hover .xpand{max-width:5em;opacity:1}
+  .ap-letter:hover .dot{opacity:0}
+  .mark-sub{display:block;margin-top:4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-style:italic}
+
+  /* ── hamburger menu ── */
+  .hamburger{
+    position:relative;
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    cursor: url('images/cursor-brushstroke.png') 32 32, pointer;
+    flex-shrink:0;
+  }
+  .hamburger-img{
+    width:36px;height:auto;
+    display:block;
+    object-fit:contain;
+    image-rendering:auto;
+    transition:transform .35s ease, opacity .3s ease;
+  }
+  .hamburger:hover .hamburger-img{transform:scale(1.08);opacity:.85}
+  .hamburger-menu{
+    position:absolute;
+    top:calc(100% + 12px);right:0;
+    background:var(--paper);
+    border:1px solid var(--hair);
+    padding:16px 24px;
+    min-width:120px;
+    opacity:0;visibility:hidden;
+    transform:translateY(-8px);
+    transition:opacity .3s ease,visibility .3s ease,transform .35s cubic-bezier(.2,.7,.2,1);
+    z-index:200;
+    display:flex;flex-direction:column;gap:2px;
+  }
+  .hamburger:hover .hamburger-menu,
+  .hamburger:focus-within .hamburger-menu{
+    opacity:1;visibility:visible;transform:translateY(0);
+  }
+  .hamburger-menu a{
+    display:block;
+    font-family:'Clash Display',system-ui,sans-serif;
+    font-weight:700;
+    font-size:clamp(20px,2.5vw,30px);
+    letter-spacing:-.02em;
+    color:var(--ink);
+    text-decoration:none;
+    line-height:1.2;
+    padding:6px 0;
+    transition:color .25s ease;
+  }
+  .hamburger-menu a:hover{color:var(--red)}
+
+  /* nav hover: cursor swap + per-link animation */
+  .hamburger-menu a{
+    transition:color .25s ease,font-style .4s ease,transform .4s ease;
+    display:block;
+  }
+  .hamburger-menu a:hover{
+    color:var(--red);
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+  }
+  /* Fresh: skewed left → straight on hover */
+  a[href="fresh.html"]{transform:skewX(20deg);display:inline-block}
+  a[href="fresh.html"]:hover{transform:skewX(0deg)}
+  /* Studies: straight → italic on hover */
+  a[href="studies.html"]{font-style:normal}
+  a[href="studies.html"]:hover{font-style:italic}
+  /* Works: italic → straight on hover */
+  a[href="works.html"]{font-style:italic}
+  a[href="works.html"]:hover{font-style:normal}
+  /* Objects: grows taller on hover */
+  a[href="objects.html"]{display:inline-block;transform:scaleY(1);transform-origin:bottom}
+  a[href="objects.html"]:hover{transform:scaleY(1.35)}
+  /* About: no treatment */
+  a[href="about.html"]{font-style:normal}
+  .shell{padding:28px 48px;min-height:100vh;display:flex;flex-direction:column}
+  .page-head{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    gap:24px;flex-wrap:wrap;
+    padding:clamp(20px,3vh,36px) 0 clamp(14px,2vh,22px);
+    border-bottom:1px solid var(--hair);
+    margin-bottom:clamp(24px,4vh,44px);
+  }
+  .page-intro{font-size:clamp(12px,1.1vw,14px);color:var(--ink);line-height:1.7;max-width:44ch;text-align:right}
+  .page-intro em{color:var(--red);font-style:italic}
+  .works-grid{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,48px)}
+  .work-card{
+    background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;
+    width:300px;max-width:100%;
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+  }
+  .work-card .frame{
+    position:relative;overflow:hidden;background:var(--tile);border:1px solid var(--hair);
+    width:100%;aspect-ratio:3/4;transition:transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .work-card .frame img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
+  .work-card:hover .frame{transform:translateY(-4px)}
+  .work-card:hover .frame img{transform:scale(1.03)}
+  .frame-enter{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(247,246,242,0);opacity:0;transition:opacity .35s,background .35s;
+    font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+  }
+  .work-card:hover .frame-enter{opacity:1;background:rgba(247,246,242,.45)}
+  .work-card .cap{margin-top:9px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .work-card .cap .t{font-family:'Playfair Display',serif;font-size:15px}
+  .work-card .cap .y{font-family:'Playfair Display',serif;font-style:italic;font-size:11px;color:var(--ink-soft)}
+  .work-card .cap2{margin-top:2px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  /* overlay */
+  .overlay{position:fixed;inset:0;z-index:9999;background:var(--paper);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s ease;cursor:url('images/cursor-brushstroke.png') 32 32,auto}
+  .overlay.open{opacity:1;pointer-events:all}
+  .ov-topbar{
+    position:sticky;top:0;z-index:2;background:var(--paper);
+    padding:16px 48px 10px;border-bottom:1px solid var(--hair);
+    display:flex;justify-content:flex-end;align-items:center;
+  }
+  .ov-close{
+    background:none;border:0;padding:0;
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+    display:flex;align-items:center;
+  }
+  .ov-close img{width:42px;height:auto;display:block;opacity:.9;transition:opacity .2s,transform .25s}
+  .ov-close:hover img{opacity:1;transform:scale(1.12) rotate(-5deg)}
+  .ov-inner{
+    max-width:920px;margin:0 auto;
+    padding:52px 48px 40px;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:52px;align-items:start;
+  }
+  .ov-left{width:100%}
+  .ov-main-img{width:100%;aspect-ratio:3/4;background:var(--tile);border:1px solid var(--hair);overflow:hidden}
+  .ov-main-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .ov-thumbs{display:flex;gap:6px;margin-top:7px}
+  .ov-thumb{
+    flex:0 0 calc(25% - 5px);aspect-ratio:1;background:var(--tile);border:1px solid var(--hair);overflow:hidden;
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;transition:border-color .2s;
+  }
+  .ov-thumb:hover{border-color:var(--ink)}
+  .ov-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .ov-info{min-width:0;padding-top:2px}
+  .ov-title{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,36px);letter-spacing:-.02em;line-height:.96}
+  .ov-year{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--ink-soft);margin-top:5px}
+  .ov-dl{margin-top:20px;border-top:1px solid var(--hair)}
+  .ov-dl div{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--hair)}
+  .ov-dl dt{width:8em;flex:none;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:1px}
+  .ov-dl dd{font-size:13px;font-weight:300;line-height:1.5}
+  .ov-trust{margin-top:10px;font-size:11px;color:var(--ink-soft);letter-spacing:.03em;line-height:1.7}
+  .ov-enquire{margin-top:24px;padding-top:18px;border-top:2px solid var(--ink)}
+  .ov-enquire .statement{font-family:'Playfair Display',serif;font-size:clamp(13px,1.3vw,16px);line-height:1.5;max-width:30ch}
+  .ov-enquire .statement em{font-style:italic;color:var(--red)}
+  .ov-enquire .row{margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .btn-enquire{
+    font-family:'Clash Display',sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;
+    background:var(--ink);color:var(--paper);border:0;padding:10px 20px;
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;transition:background .3s;
+  }
+  .btn-enquire:hover{background:var(--red)}
+  .ov-price{font-size:11px;color:var(--ink-soft);letter-spacing:.04em}
+  .ov-echo{margin-top:10px;font-size:11px;color:var(--red);font-style:italic;opacity:0;transition:opacity .4s;line-height:1.6;max-width:30ch}
+  .ov-echo.show{opacity:1}
+  @media(max-width:700px){
+    .shell{padding:20px 20px}
+    .ov-inner{grid-template-columns:1fr;padding:20px;gap:24px}
+    .ov-topbar{padding:12px 20px}
+  }
+  .page-head h1{font-family:'Clash Display',sans-serif;font-weight:700;
+    font-size:clamp(36px,5vw,68px);letter-spacing:-.025em;line-height:.94;
+    display:inline-block;
+    transform:skewX(30deg);transform-origin:left bottom;
+    transition:transform .5s cubic-bezier(.2,.7,.2,1);
+    color:var(--ink)}
+  .page-head:hover h1{transform:skewX(0deg)}
+  .overlay{display:none}
+  .overlay.open{display:block}
+
+
+  /* ── AP? page specific ── */
+  .ap-page{
+    flex:1;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    text-align:center;
+    padding:clamp(32px,6vh,64px) 0;
+    gap:clamp(24px,4vh,44px);
+  }
+
+  /* A Position title — same size as category titles */
+  .ap-title{
+    font-family:'Clash Display',sans-serif;font-weight:700;
+    font-size:clamp(36px,5vw,68px);letter-spacing:-.025em;line-height:.94;
+    display:inline-flex;align-items:baseline;gap:0;
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+    user-select:none;
+  }
+
+  /* A — black, hover expands rtist in red */
+  .ap-a{
+    position:relative;display:inline-flex;align-items:baseline;
+  }
+  .ap-a .letter{color:var(--ink)}
+  .ap-a .expand{
+    display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
+    color:var(--red);
+    transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .38s ease;
+  }
+  .ap-a:hover .expand{max-width:5em;opacity:1}
+
+  /* space between A and Position */
+  .ap-gap{width:.28em;display:inline-block;flex-shrink:0}
+
+  /* Position — black, hover adds s in black */
+  .ap-pos{
+    position:relative;display:inline-flex;align-items:baseline;
+    color:var(--ink);
+  }
+  .ap-pos .s-expand{
+    display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
+    color:var(--ink);
+    transition:max-width .4s cubic-bezier(.2,.7,.2,1),opacity .32s ease;
+  }
+  .ap-pos:hover .s-expand{max-width:1em;opacity:1}
+
+  /* philosophy words below */
+  .philosophy{
+    display:flex;flex-direction:column;align-items:center;
+    gap:clamp(2px,.8vh,8px);
+  }
+  .phil{
+    font-family:'Clash Display',sans-serif;font-weight:700;
+    font-size:clamp(44px,8vw,120px);
+    letter-spacing:-.03em;line-height:.92;
+    display:inline-flex;align-items:baseline;
+    user-select:none;
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+  }
+  .phil .dim{color:var(--hair);font-weight:600;transition:color .35s}
+  .phil .core{color:var(--ink)}
+  .phil .hide{
+    display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
+    color:var(--red);
+    transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .38s ease;
+  }
+  .phil:hover .hide{max-width:6em;opacity:1}
+  .phil:hover .dim{color:var(--ink-soft)}
+
+  .phil-sub{
+    max-width:44ch;font-size:clamp(12px,1.1vw,14px);
+    color:var(--ink-soft);line-height:1.8;text-align:center;
+    margin-top:clamp(12px,2vh,24px);
+  }
+  .phil-sub em{color:var(--red);font-style:italic}
+  .about-meta{
+    text-align:center;padding:clamp(14px,2vh,24px) 0;
+    border-top:1px solid var(--hair);
+    font-size:11px;color:var(--ink-soft);letter-spacing:.04em;line-height:2;
+  }
+
+  .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}}
+
+/* ── FOOTER ── */
+  .site-footer{border-top:1px solid var(--hair);padding:clamp(16px,2.5vh,28px) 0 clamp(12px,2vh,20px);margin-top:auto}
+  .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:16px}
+  .footer-copy{font-size:11px;color:var(--ink-soft);letter-spacing:.03em}
+  .footer-centre{display:flex;gap:20px;align-items:center;justify-content:center}
+  .footer-centre a{font-size:12px;letter-spacing:.04em;color:var(--ink);text-decoration:none;transition:color .25s;white-space:nowrap}
+  .footer-centre a:hover{color:var(--red)}
+  .footer-email{display:flex;align-items:center;color:var(--ink) !important;transition:color .25s}
+  .footer-email:hover{color:var(--red) !important}
+  .footer-email svg{display:block}
+  .footer-legal{display:flex;gap:16px;justify-content:flex-end;flex-wrap:wrap}
+  .footer-legal a{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .25s;white-space:nowrap}
+  .footer-legal a:hover{color:var(--ink)}
+  @media(max-width:700px){.footer-inner{grid-template-columns:1fr;gap:10px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="bar">
+      <div>
+        <a href="index.html" class="ap-wrap" style="text-decoration:none">
+          <span class="ap-letter"><span class="single">A</span><span class="xpand">rtist</span><span class="dot">.</span></span>
+          <span class="ap-letter"><span class="single">P</span><span class="xpand">ositions</span><span class="dot">.</span></span>
+        </a>
+        <span class="mark-sub">Represents Zdenek Konvalina</span>
+      </div>
+      <a href="index.html" class="header-home" aria-label="Back to homepage">
+        <img src="images/hamburger-menu-icon.png" alt="Home">
+      </a>
+      <div class="hamburger" tabindex="0" aria-label="Menu">
+        <img class="hamburger-img" src="images/door-entry-stroke.png" alt="Menu">
+        <nav class="hamburger-menu">
+          <a href="fresh.html">Fresh</a>
+          <a href="studies.html">Studies</a>
+          <a href="works.html">Works</a>
+          <a href="objects.html">Objects</a>
+          <a href="about.html" style="text-align:center">AP?</a>
+        </nav>
+      </div>
+    </header>
+
+  <div class="ap-page">
+    <!-- A Position title -->
+    <div class="ap-title">
+      <span class="ap-a">
+        <span class="letter">A</span><span class="expand">rtist</span>
+      </span>
+      <span class="ap-gap"></span>
+      <span class="ap-pos">
+        Position<span class="s-expand">s</span>
+      </span>
+  </div>
+
+    <!-- Born Move Live below -->
+    <div class="philosophy">
+      <div class="phil"><span class="dim">be</span><span class="core">Born</span><span class="hide"> — to begin</span></div>
+      <div class="phil"><span class="dim">be</span><span class="core">Move</span><span class="dim">d</span><span class="hide"> — to feel</span></div>
+      <div class="phil"><span class="dim">be</span><span class="core">Li</span><span class="dim">e</span><span class="core">ve</span><span class="hide"> — to trust</span></div>
+    </div>
+
+    <p class="phil-sub">
+      AP · Artist Positions is the studio-facing presence of <em>Zdeněk Konvalina</em> —
+      painter, sculptor, former principal dancer. Held together by <em>Ma</em> —
+      the charged interval, the breath between.
+    </p>
+  </div>
+
+  <div class="about-meta">
+    BAODT Munich · Astra · Lisa Pirker · Circle Culture · Rich Art · Cova Gallery<br>
+    Studio: Prague · Born: Brno, 1979 · Each work signed · documented · certificate on acquisition
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-copy">
+        © 2026 Artist Position / Zdeňek Konvalina. All rights reserved.
+      </div>
+      <div class="footer-centre">
+        <a href="https://www.konvalina.art" target="_blank" rel="noopener">www.konvalina.art</a>
+        <a href="https://www.instagram.com/zdenekkonvalina" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:konvalina@me.com" class="footer-email" aria-label="Email">
+          <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="14" height="11" rx="1.5" stroke="currentColor"/><path d="M1 1L7.5 7L14 1" stroke="currentColor" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+      <div class="footer-legal">
+        <a href="legal.html#gdpr">GDPR</a>
+        <a href="legal.html#terms">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+</body></html>
