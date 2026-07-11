@@ -136,35 +136,15 @@
 
 
   .main-grid{
-    flex:1;display:grid;
-    grid-template-columns:1fr 1fr;
-    grid-template-rows:auto auto auto;
-    grid-template-areas:
-      "space  ."
-      "cats   art"
-      "below  art";
-    align-content:center;
-    column-gap:48px;row-gap:0;
-    padding:32px 0;
+    flex:1;display:grid;grid-template-columns:1fr 1fr;
+    gap:48px;padding:32px 0;
   }
-  /* reserved space above the categories — sized for a short intro.
-     its bottom edge is where the categories block (and its top
-     divider line) begins, which is what lines up with the artwork's
-     top edge. TEMP: dashed line below just visualizes the sizing. */
-  .cats-intro-space{
-    grid-area:space;
-    min-height:clamp(64px,9vh,100px);
-    display:flex;align-items:flex-end;
-    padding-bottom:10px;margin-bottom:2px;
-    border-bottom:1px dashed var(--hair);
-  }
-  .cats-intro-space span{
-    font-family:'Hanken Grotesk',system-ui,sans-serif;
-    font-style:italic;font-size:clamp(12px,1.2vw,15px);
-    color:var(--ink-soft);opacity:.6;
+  .phil-col{
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:flex-start;
+    gap:clamp(24px,4vh,48px);
   }
   .phil-cats-top{
-    grid-area:cats;align-self:start;
     display:flex;flex-direction:column;
     width:100%;
   }
@@ -187,14 +167,13 @@
     margin-top:6px;
   }
   .phil-below{
-    grid-area:below;align-self:start;
     display:flex;flex-direction:column;
     gap:clamp(8px,1.5vh,18px);
     padding-top:clamp(16px,2.5vh,28px);
   }
-  .phil-below .phil{font-size:clamp(40px,5vw,70px)}
+  .phil-col .phil{font-size:clamp(40px,5vw,70px)}
 
-  .artwork-col{grid-area:art;align-self:start;display:flex;flex-direction:column;align-items:center}
+  .artwork-col{display:flex;flex-direction:column;justify-content:center;align-items:center}
   .artwork-frame{
     display:block;
     position:relative;overflow:hidden;
@@ -326,40 +305,16 @@
   }
   @media(max-width:820px){
     .main-site{padding:20px 24px}
-    .main-grid{
-      grid-template-columns:1fr;
-      grid-template-rows:auto auto auto;
-      grid-template-areas:
-        "art"
-        "cats"
-        "below";
-      row-gap:32px;
-    }
-    .cats-intro-space{display:none}
+    .main-grid{grid-template-columns:1fr;gap:32px}
+    .artwork-col{order:-1}
     .artwork-frame{max-width:360px;margin:0 auto}
   }
 </style>
 </head>
 <body>
 
-  <!-- LANDING -->
-  <div class="landing" id="landing">
-
-    <div class="phil-single">
-      <div class="phil-big-wrap">
-          <span class="phil-a-group"><span class="bk">A</span><span class="h">rtist</span></span><span class="bk-space">&thinsp;</span><span class="phil-p-group"><span class="bk">P</span><span style="color:var(--red)">osition</span><span class="s-reveal">s</span></span>
-        </div>
-    </div>
-
-    <!-- blue stroke — the door -->
-    <a class="stroke-entry" id="strokeEntry" href="#" aria-label="Enter Artist Position">
-      <img src="images/hamburger-menu-icon.png" alt="Enter">
-    </a>
-
-  </div>
-
   <!-- MAIN SITE -->
-  <div class="main-site" id="mainSite">
+  <div class="main-site visible" id="mainSite">
 
     <header class="bar">
       <div>
@@ -371,7 +326,6 @@
       <div class="hamburger" tabindex="0" aria-label="Menu">
         <img class="hamburger-img" src="images/door-entry-stroke.png" alt="Menu">
         <nav class="hamburger-menu">
-          <a href="fresh.html">Fresh</a>
           <a href="studies.html">Studies</a>
           <a href="works.html">Works</a>
           <a href="objects.html">Objects</a>
@@ -381,22 +335,18 @@
     </header>
 
     <section class="main-grid">
-      <div class="cats-intro-space"><span>reserved for 3–4 lines of intro text, smaller than the category type</span></div>
-      <div class="phil-cats-top">
-        <a class="cat" href="fresh.html"><span class="cw">Fresh</span><span class="desc">New · Now — straight from the studio, still becoming.</span></a>
-        <a class="cat" href="studies.html"><span class="cw">Studies</span><span class="desc">Exploratory, smaller — the works offered to live with.</span></a>
-        <a class="cat" href="works.html"><span class="cw">Works</span><span class="desc">Resolved, finished — the fully arrived pieces.</span></a>
-        <a class="cat" href="objects.html"><span class="cw">objects</span><span class="desc">Detached · dimensional — objects breaking free of the canvas.</span></a>
+      <div class="phil-col">
+        <div class="phil-cats-top">
+          <a class="cat" href="studies.html"><span class="cw">Studies</span><span class="desc">Exploratory, smaller — the works offered to live with.</span></a>
+          <a class="cat" href="works.html"><span class="cw">Works</span><span class="desc">Resolved, finished — the fully arrived pieces.</span></a>
+          <a class="cat" href="objects.html"><span class="cw">objects</span><span class="desc">Detached · dimensional — objects breaking free of the canvas.</span></a>
+        </div>
       </div>
       <div class="artwork-col">
         <div class="artwork-frame">
           <img src="images/index/home-featured.jpg"
                alt="Zdeněk Konvalina — featured work">
         </div>
-      </div>
-      <div class="phil-below">
-        <div class="phil"><span class="h">be</span><span class="bk">Move</span><span class="h">d</span></div>
-        <p class="phil-quote">And what breathes between.</p>
       </div>
     </section>
 
@@ -425,28 +375,9 @@
   </div>
 
 <script>
-  var clicked = false;
-  document.getElementById('strokeEntry').addEventListener('click', function(e){
-    e.preventDefault();
-    if(clicked) return;
-    clicked = true;
-    document.getElementById('landing').classList.add('gone');
-    document.getElementById('mainSite').classList.add('visible');
-  });
-
-  // Header "home" links across the site point to index.html#main —
-  // jump straight to the main site, skipping the landing/door screen.
-  if(location.hash === '#main'){
-    clicked = true;
-    document.documentElement.classList.add('no-transition');
-    document.getElementById('landing').classList.add('gone');
-    document.getElementById('mainSite').classList.add('visible');
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        document.documentElement.classList.remove('no-transition');
-      });
-    });
-  }
+  // Landing/door screen removed — the main site is shown on load.
+  // #main links from other pages still resolve here directly.
+  document.getElementById('mainSite').classList.add('visible');
 </script>
 </body>
 </html>
