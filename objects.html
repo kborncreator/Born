@@ -5,8 +5,9 @@
 <title>Objects — AP · Artist Positions</title>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#F7F6F2;--ink:#232220;--ink-soft:#8a877f;--red:#9a2a1c;--hair:#dcd9d2;--tile:#ece9e2}
+  :root{--paper:#F7F6F2;--ink:#232220;--ink-soft:#8a877f;--red:#9a2a1c;--blue:#ccdae5;--hair:#dcd9d2;--tile:#ece9e2}
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
   body{cursor:url('images/cursor-brushstroke.png') 32 32,auto}
@@ -33,7 +34,7 @@
   .ap-letter .dot{font-size:13px;color:var(--hair);margin:0 1px}
   .ap-letter .xpand{
     display:inline-block;overflow:hidden;max-width:0;opacity:0;white-space:nowrap;
-    color:var(--red);font-size:28px;
+    color:var(--blue);font-size:28px;
     transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease;
   }
   .ap-letter:hover .xpand{max-width:5em;opacity:1}
@@ -111,7 +112,7 @@
     border-bottom:1px solid var(--hair);
     margin-bottom:clamp(24px,4vh,44px);
   }
-  .page-intro{font-size:clamp(12px,1.1vw,14px);color:var(--ink);line-height:1.7;max-width:44ch;text-align:right}
+  .page-intro{font-family:'DM Mono','Courier New',monospace;font-weight:300;font-size:clamp(12px,1.1vw,14px);color:var(--ink);line-height:1.7;max-width:62ch;text-align:right}
   .page-intro em{color:var(--red);font-style:italic}
   .works-grid{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,48px)}
   .work-card{
@@ -318,7 +319,6 @@
       <div class="hamburger" tabindex="0" aria-label="Menu">
         <img class="hamburger-img" src="images/door-entry-stroke.png" alt="Menu">
         <nav class="hamburger-menu">
-          <a href="fresh.html">Fresh</a>
           <a href="studies.html">Studies</a>
           <a href="works.html">Works</a>
           <a href="objects.html">Objects</a>
