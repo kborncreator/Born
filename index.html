@@ -296,12 +296,12 @@
   /* Fresh: skewed left → straight on hover */
   a[href="fresh.html"]{transform:skewX(20deg);display:inline-block}
   a[href="fresh.html"]:hover{transform:skewX(0deg)}
-  /* Studies: straight → italic on hover */
-  a[href="studies.html"]{font-style:normal}
-  a[href="studies.html"]:hover{font-style:italic}
-  /* Works: italic → straight on hover */
-  a[href="works.html"]{font-style:italic}
-  a[href="works.html"]:hover{font-style:normal}
+  /* Studies: reverse-italic (Clash Display skewed) → straight on hover — the old Fresh treatment */
+  a[href="studies.html"]{transform:skewX(20deg);display:inline-block}
+  a[href="studies.html"]:hover{transform:skewX(0deg)}
+  /* Works: forward italic tilt (extra skew) → straight on hover — counterpoint to Studies' back-slant */
+  a[href="works.html"]{font-style:italic;transform:skewX(-12deg);display:inline-block}
+  a[href="works.html"]:hover{font-style:normal;transform:skewX(0deg)}
   /* Objects: grows taller on hover (reduced so it stays clear of the divider) */
   a[href="objects.html"]{display:inline-block;transform:scaleY(1);transform-origin:bottom}
   a[href="objects.html"]:hover{transform:scaleY(1.14)}
