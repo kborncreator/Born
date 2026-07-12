@@ -327,19 +327,6 @@
     display:block;
   }
 
-  /* ── word paragraph replacing the artwork photo ── */
-  .word-para{
-    max-width:440px;
-    font-family:'DM Mono','Courier New',monospace;
-    font-weight:300;
-    font-size:clamp(13px,1.45vw,17px);
-    line-height:1.6;
-    letter-spacing:0;
-    color:var(--ink);
-  }
-  .word-para .w{transition:color .25s ease}
-  .word-para .w:hover{color:var(--red)}
-
   @media(max-width:820px){
     .main-grid{grid-template-columns:1fr}
     .phil-bracket{transform:rotate(90deg);margin:8px auto;width:auto}
@@ -484,9 +471,9 @@
       </div>
 
       <div class="artwork-col">
-        <p class="word-para" aria-label="A study on the many names for early, unresolved work">
-          <span class="w">Born</span> <span class="w">Origins</span> <span class="w">Seeds</span> <span class="w">Sparks</span> <span class="w">Embers</span> <span class="w">First Impressions</span> <span class="w">First Gestures</span> <span class="w">First Forms</span> <span class="w">First Breath</span> <span class="w">Beginnings</span> <span class="w">Openings</span> <span class="w">Thresholds</span> <span class="w">Arrivals</span> <span class="w">In Formation</span> <span class="w">Forming</span> <span class="w">Developing</span> <span class="w">Growing</span> <span class="w">Unfolding</span> <span class="w">Emergence</span> <span class="w">Becoming</span> <span class="w">Evolving</span> <span class="w">Ripening</span> <span class="w">States of Becoming</span> <span class="w">In Progress</span> <span class="w">Works in Process</span> <span class="w">Emerging Works</span> <span class="w">Early Works</span> <span class="w">Exercises</span> <span class="w">Trials</span> <span class="w">Experiments</span> <span class="w">Investigations</span> <span class="w">Inquiries</span> <span class="w">Explorations</span> <span class="w">Variations</span> <span class="w">Iterations</span> <span class="w">Fragments</span> <span class="w">Notes</span> <span class="w">Drafts</span> <span class="w">Material Thinking</span> <span class="w">The Studio</span> <span class="w">Studio Notes</span> <span class="w">Before the Work</span> <span class="w">The Work Before the Work</span> <span class="w">The Not Yet</span> <span class="w">The Unfinished</span> <span class="w">Resolving</span> <span class="w">Released</span>
-        </p>
+        <div class="artwork-frame">
+          <img src="images/about/typography.jpg" alt="Typographic study">
+        </div>
       </div>
     </section>
   </div>
