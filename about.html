@@ -259,20 +259,24 @@
   }
   .ap-pos:hover .s-expand{max-width:1em;opacity:1}
 
-  /* philosophy words below */
+  /* philosophy words — now left column, smaller, next to featured artwork */
   .philosophy{
-    display:flex;flex-direction:column;align-items:center;
+    display:flex;flex-direction:column;align-items:flex-start;
     gap:clamp(2px,.8vh,8px);
   }
   .phil{
     font-family:'Clash Display',sans-serif;font-weight:700;
-    font-size:clamp(44px,8vw,120px);
+    font-size:clamp(28px,4vw,52px);
     letter-spacing:-.03em;line-height:.92;
     display:inline-flex;align-items:baseline;
     user-select:none;
     cursor:url('images/cursor-brushstroke.png') 32 32,auto;
   }
-  .phil .dim{color:var(--hair);font-weight:600;transition:color .35s}
+  .phil .dim{
+    display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
+    color:var(--ink-soft);font-weight:600;
+    transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .38s ease;
+  }
   .phil .core{color:var(--ink)}
   .phil .hide{
     display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
@@ -280,7 +284,7 @@
     transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .38s ease;
   }
   .phil:hover .hide{max-width:6em;opacity:1}
-  .phil:hover .dim{color:var(--ink-soft)}
+  .phil:hover .dim{max-width:3em;opacity:1}
 
   .phil-sub{
     max-width:44ch;font-size:clamp(12px,1.1vw,14px);
@@ -288,10 +292,136 @@
     margin-top:clamp(12px,2vh,24px);
   }
   .phil-sub em{color:var(--red);font-style:italic}
+
+  /* brought over from index.html — top intro paragraph + featured artwork */
+  .main-grid{
+    flex:1;min-height:0;display:grid;grid-template-columns:1fr auto 1fr;
+    gap:36px;padding:clamp(10px,2vh,24px) 0;
+    align-content:center;
+  }
+  .phil-col{
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:flex-start;
+    gap:clamp(24px,4vh,48px);
+  }
+  .artwork-col{display:flex;flex-direction:column;justify-content:center;align-items:center}
+  .artwork-frame{
+    display:block;
+    position:relative;overflow:hidden;
+    width:100%;max-width:420px;aspect-ratio:3/4;
+    background:var(--hair);
+  }
+  .artwork-frame img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ── middle bracket (brushstroke PNG) ── */
+  .phil-bracket{
+    align-self:stretch;
+    display:flex;align-items:center;justify-content:center;
+    user-select:none;
+  }
+  .phil-bracket img{
+    height:100%;
+    max-height:420px;
+    width:auto;
+    object-fit:contain;
+    display:block;
+  }
+
+  /* ── word paragraph replacing the artwork photo ── */
+  .word-para{
+    max-width:440px;
+    font-family:'DM Mono','Courier New',monospace;
+    font-weight:300;
+    font-size:clamp(13px,1.45vw,17px);
+    line-height:1.6;
+    letter-spacing:0;
+    color:var(--ink);
+  }
+  .word-para .w{transition:color .25s ease}
+  .word-para .w:hover{color:var(--red)}
+
+  @media(max-width:820px){
+    .main-grid{grid-template-columns:1fr}
+    .phil-bracket{transform:rotate(90deg);margin:8px auto;width:auto}
+    .phil-bracket img{max-height:120px}
+  }
+
+  .site-intro{
+    grid-column:1 / -1;
+    max-width:70ch;margin:0 auto clamp(6px,1vh,14px);
+    text-align:center;
+    font-family:'DM Mono','Courier New',monospace;
+    font-weight:300;
+    font-size:clamp(13px,1.55vw,20px);
+    line-height:1.36;letter-spacing:0;
+    color:var(--ink);
+  }
+  .site-intro span{display:inline-block;color:var(--ink);transition:transform .35s ease,font-style .25s ease}
+  .site-intro .it{font-style:italic}
+  .site-intro .ri{font-style:normal;transform:skewX(11deg)}
+  .site-intro .no{font-style:normal}
+  .site-intro .it:hover{font-style:normal;transform:skewX(0)}
+  .site-intro .ri:hover{font-style:italic;transform:skewX(0)}
+  .site-intro .no:hover{font-style:italic}
+
   .about-meta{
-    text-align:center;padding:clamp(14px,2vh,24px) 0;
+    text-align:center;padding:clamp(14px,2vh,24px) 0 0;
     border-top:1px solid var(--hair);
-    font-size:11px;color:var(--ink-soft);letter-spacing:.04em;line-height:2;
+  }
+
+  /* ── STUDIO section ── */
+  .studio-title{
+    font-family:'Clash Display',sans-serif;font-weight:700;
+    text-transform:uppercase;text-align:left;
+    font-size:clamp(24px,3.6vw,42px);letter-spacing:-.02em;line-height:.96;
+    color:var(--ink);
+  }
+  .studio-sub{
+    font-family:'Playfair Display',serif;font-style:italic;text-align:left;
+    color:var(--ink-soft);
+    font-size:clamp(14px,1.4vw,18px);
+    margin-top:clamp(6px,1vh,10px);
+  }
+  .studio-gallery{
+    display:flex;flex-direction:column;
+    gap:clamp(18px,3vw,32px);
+    margin:clamp(28px,4.5vh,48px) auto 0;
+    max-width:820px;
+  }
+  .studio-row{
+    display:flex;justify-content:center;align-items:flex-end;
+    flex-wrap:wrap;
+    gap:clamp(12px,1.8vw,22px);
+  }
+  .studio-img{
+    position:relative;overflow:hidden;
+    width:130px;aspect-ratio:1/1;
+    background:var(--tile);border:1px solid var(--hair);
+    cursor:url('images/cursor-brushstroke.png') 32 32,auto;
+    transition:transform .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .studio-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .studio-img:hover{transform:rotate(0deg) translateY(-6px) scale(1.05);z-index:2}
+  .studio-img:hover img{transform:scale(1.06)}
+
+  /* row 1 — 5 images, same size, scattered rotation + vertical offset only */
+  .row-1 .studio-img:nth-child(1){transform:rotate(-3deg) translateY(6px)}
+  .row-1 .studio-img:nth-child(2){transform:rotate(2deg) translateY(-8px)}
+  .row-1 .studio-img:nth-child(3){transform:rotate(-1deg) translateY(4px)}
+  .row-1 .studio-img:nth-child(4){transform:rotate(3deg) translateY(-4px)}
+  .row-1 .studio-img:nth-child(5){transform:rotate(-2deg) translateY(10px)}
+
+  /* row 2 — 6 images, opposite scatter rhythm */
+  .row-2 .studio-img:nth-child(1){transform:rotate(2deg) translateY(-6px)}
+  .row-2 .studio-img:nth-child(2){transform:rotate(-3deg) translateY(8px)}
+  .row-2 .studio-img:nth-child(3){transform:rotate(1deg) translateY(-10px)}
+  .row-2 .studio-img:nth-child(4){transform:rotate(-2deg) translateY(5px)}
+  .row-2 .studio-img:nth-child(5){transform:rotate(3deg) translateY(-4px)}
+  .row-2 .studio-img:nth-child(6){transform:rotate(-1deg) translateY(7px)}
+
+  @media(max-width:700px){
+    .studio-img{width:26vw !important;transform:none !important}
+    .studio-img:hover{transform:translateY(-4px) scale(1.05) !important}
   }
 
   .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}}
@@ -337,34 +467,51 @@
     </header>
 
   <div class="ap-page">
-    <!-- A Position title -->
-    <div class="ap-title">
-      <span class="ap-a">
-        <span class="letter">A</span><span class="expand">rtist</span>
-      </span>
-      <span class="ap-gap"></span>
-      <span class="ap-pos">
-        Position<span class="s-expand">s</span>
-      </span>
-  </div>
+    <section class="main-grid">
+      <p class="site-intro"><span class="ri">Artist</span> <span class="no">Positions</span> <span class="it">is</span> <span class="no">the</span> <span class="it">home</span> <span class="ri">of</span> <span class="it">Zdeněk</span> <span class="ri">Konvalina's</span> <span class="no">painting</span> <span class="it">practice</span> — <span class="ri">the</span> <span class="no">thinking,</span> <span class="it">studies</span> <span class="ri">side,</span> <span class="no">before</span> <span class="it">the</span> <span class="ri">ideas</span> <span class="no">fully</span> <span class="it">develop;</span> <span class="ri">a</span> <span class="no">place</span> <span class="it">to</span> <span class="ri">see</span> <span class="no">the</span> <span class="it">work</span> <span class="ri">as</span> <span class="no">it</span> <span class="it">moves</span> <span class="ri">from</span> <span class="no">first</span> <span class="it">mark</span> <span class="ri">to</span> <span class="no">finished</span> <span class="it">piece.</span></p>
 
-    <!-- Born Move Live below -->
-    <div class="philosophy">
-      <div class="phil"><span class="dim">be</span><span class="core">Born</span><span class="hide"> — to begin</span></div>
-      <div class="phil"><span class="dim">be</span><span class="core">Move</span><span class="dim">d</span><span class="hide"> — to feel</span></div>
-      <div class="phil"><span class="dim">be</span><span class="core">Li</span><span class="dim">e</span><span class="core">ve</span><span class="hide"> — to trust</span></div>
-    </div>
+      <div class="phil-col">
+        <!-- Born Move Live -->
+        <div class="philosophy">
+          <div class="phil"><span class="dim">be</span><span class="core">Born</span><span class="hide"> — to begin</span></div>
+          <div class="phil"><span class="dim">be</span><span class="core">Move</span><span class="dim">d</span><span class="hide"> — to feel</span></div>
+          <div class="phil"><span class="dim">be</span><span class="core">Li</span><span class="dim">e</span><span class="core">ve</span><span class="hide"> — to trust</span></div>
+        </div>
+      </div>
 
-    <p class="phil-sub">
-      AP · Artist Positions is the studio-facing presence of <em>Zdeněk Konvalina</em> —
-      painter, sculptor, former principal dancer. Held together by <em>Ma</em> —
-      the charged interval, the breath between.
-    </p>
+      <div class="phil-bracket" aria-hidden="true">
+        <img src="images/about/bracket-brushstroke.png" alt="">
+      </div>
+
+      <div class="artwork-col">
+        <p class="word-para" aria-label="A study on the many names for early, unresolved work">
+          <span class="w">Born</span> <span class="w">Origins</span> <span class="w">Seeds</span> <span class="w">Sparks</span> <span class="w">Embers</span> <span class="w">First Impressions</span> <span class="w">First Gestures</span> <span class="w">First Forms</span> <span class="w">First Breath</span> <span class="w">Beginnings</span> <span class="w">Openings</span> <span class="w">Thresholds</span> <span class="w">Arrivals</span> <span class="w">In Formation</span> <span class="w">Forming</span> <span class="w">Developing</span> <span class="w">Growing</span> <span class="w">Unfolding</span> <span class="w">Emergence</span> <span class="w">Becoming</span> <span class="w">Evolving</span> <span class="w">Ripening</span> <span class="w">States of Becoming</span> <span class="w">In Progress</span> <span class="w">Works in Process</span> <span class="w">Emerging Works</span> <span class="w">Early Works</span> <span class="w">Exercises</span> <span class="w">Trials</span> <span class="w">Experiments</span> <span class="w">Investigations</span> <span class="w">Inquiries</span> <span class="w">Explorations</span> <span class="w">Variations</span> <span class="w">Iterations</span> <span class="w">Fragments</span> <span class="w">Notes</span> <span class="w">Drafts</span> <span class="w">Material Thinking</span> <span class="w">The Studio</span> <span class="w">Studio Notes</span> <span class="w">Before the Work</span> <span class="w">The Work Before the Work</span> <span class="w">The Not Yet</span> <span class="w">The Unfinished</span> <span class="w">Resolving</span> <span class="w">Released</span>
+        </p>
+      </div>
+    </section>
   </div>
 
   <div class="about-meta">
-    BAODT Munich · Astra · Lisa Pirker · Circle Culture · Rich Art · Cova Gallery<br>
-    Studio: Prague · Born: Brno, 1979 · Each work signed · documented · certificate on acquisition
+    <h2 class="studio-title">Studio</h2>
+    <p class="studio-sub">thinking, creating, breathing space</p>
+
+    <div class="studio-gallery">
+      <div class="studio-row row-1">
+        <div class="studio-img"><img src="images/studio/studio-1.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-2.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-3.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-4.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-5.jpg" alt="Studio — process shot"></div>
+      </div>
+      <div class="studio-row row-2">
+        <div class="studio-img"><img src="images/studio/studio-6.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-7.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-8.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-9.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-10.jpg" alt="Studio — process shot"></div>
+        <div class="studio-img"><img src="images/studio/studio-11.jpg" alt="Studio — process shot"></div>
+      </div>
+    </div>
   </div>
 
   <footer class="site-footer">
