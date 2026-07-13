@@ -114,7 +114,8 @@
   }
   .page-intro{font-family:'DM Mono','Courier New',monospace;font-weight:300;font-size:clamp(12px,1.1vw,14px);color:var(--ink);line-height:1.7;max-width:62ch;text-align:right}
   .page-intro em{color:var(--red);font-style:italic}
-  .works-grid{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,48px)}
+  @media(max-width:700px){.page-intro br{display:none}}
+  .works-grid{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,48px);margin-bottom:clamp(24px,4vh,44px)}
   .work-card{
     background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;
     width:300px;max-width:100%;

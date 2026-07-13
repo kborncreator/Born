@@ -121,6 +121,7 @@
   }
   .page-intro{font-family:'DM Mono','Courier New',monospace;font-weight:300;font-size:clamp(12px,1.1vw,14px);color:var(--ink);line-height:1.7;max-width:62ch;text-align:right}
   .page-intro em{color:var(--red);font-style:italic}
+  @media(max-width:700px){.page-intro br{display:none}}
   .works-grid{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,48px);margin-bottom:clamp(24px,4vh,44px)}
   .work-card{
     background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;
@@ -292,10 +293,10 @@
   .page-head h1{font-family:'Clash Display',sans-serif;font-weight:700;
     font-size:clamp(36px,5vw,68px);letter-spacing:-.025em;line-height:.94;
     display:inline-block;
-    font-style:normal;transform:skewX(0deg);
+    font-style:normal;transform:skewX(20deg);
     transition:transform .45s cubic-bezier(.2,.7,.2,1);
     color:var(--ink)}
-  .page-head:hover h1{transform:skewX(-30deg)}
+  .page-head:hover h1{transform:skewX(0deg)}
 
 /* ── FOOTER ── */
   .site-footer{border-top:1px solid var(--hair);padding:clamp(16px,2.5vh,28px) 0 clamp(12px,2vh,20px);margin-top:auto}
