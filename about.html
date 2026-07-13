@@ -4,7 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AP? — Artist Positions</title>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Hanken+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 
   :root{--paper:#F7F6F2;--ink:#232220;--ink-soft:#8a877f;--red:#9a2a1c;--blue:#ccdae5;--hair:#dcd9d2;--tile:#ece9e2}
@@ -261,8 +261,9 @@
 
   /* philosophy words — now left column, smaller, next to featured artwork */
   .philosophy{
-    display:flex;flex-direction:column;align-items:flex-start;
+    display:flex;flex-direction:column;align-items:center;
     gap:clamp(2px,.8vh,8px);
+    margin-top:clamp(20px,3vh,36px);
   }
   .phil{
     font-family:'Clash Display',sans-serif;font-weight:700;
@@ -277,10 +278,10 @@
     color:var(--ink-soft);font-weight:600;
     transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .38s ease;
   }
-  .phil .core{color:var(--ink)}
+  .phil .core{color:#ebe8e2}
   .phil .hide{
     display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
-    color:var(--red);
+    color:var(--ink);
     transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .38s ease;
   }
   .phil:hover .hide{max-width:6em;opacity:1}
@@ -293,56 +294,16 @@
   }
   .phil-sub em{color:var(--red);font-style:italic}
 
-  /* brought over from index.html — top intro paragraph + featured artwork */
-  .main-grid{
-    flex:1;min-height:0;display:grid;grid-template-columns:1fr auto 1fr;
-    gap:36px;padding:clamp(10px,2vh,24px) 0;
-    align-content:center;
-  }
-  .phil-col{
-    display:flex;flex-direction:column;
-    justify-content:center;align-items:flex-start;
-    gap:clamp(24px,4vh,48px);
-    min-width:0;
-  }
-  .artwork-col{display:flex;flex-direction:column;justify-content:center;align-items:center}
-  .artwork-frame{
-    display:block;
-    position:relative;overflow:hidden;
-    width:100%;max-width:420px;aspect-ratio:3/4;
-    background:var(--hair);
-  }
-  .artwork-frame img{width:100%;height:100%;object-fit:cover;display:block}
-
-  /* ── middle bracket (brushstroke PNG) ── */
-  .phil-bracket{
-    align-self:stretch;
-    display:flex;align-items:center;justify-content:center;
-    user-select:none;
-  }
-  .phil-bracket img{
-    height:100%;
-    width:auto;
-    object-fit:contain;
-    display:block;
-  }
-
-  @media(max-width:820px){
-    .main-grid{grid-template-columns:1fr}
-    .phil-bracket{transform:rotate(90deg);margin:8px auto;width:auto}
-    .phil-bracket img{max-height:120px}
-  }
-
   .site-intro{
-    grid-column:1 / -1;
-    max-width:70ch;margin:0 auto clamp(6px,1vh,14px);
+    max-width:70ch;margin:0 auto;
     text-align:center;
     font-family:'DM Mono','Courier New',monospace;
     font-weight:300;
     font-size:clamp(13px,1.55vw,20px);
-    line-height:1.36;letter-spacing:0;
+    line-height:1.5;letter-spacing:0;
     color:var(--ink);
   }
+  .site-intro + .site-intro{margin-top:clamp(14px,2vh,22px)}
   .site-intro span{display:inline-block;color:var(--ink);transition:transform .35s ease,font-style .25s ease}
   .site-intro .it{font-style:italic}
   .site-intro .ri{font-style:normal;transform:skewX(11deg)}
@@ -352,7 +313,7 @@
   .site-intro .no:hover{font-style:italic}
 
   .about-meta{
-    text-align:center;padding:clamp(14px,2vh,24px) 0 0;
+    text-align:center;padding:clamp(14px,2vh,24px) 0 clamp(56px,9vh,96px);
     border-top:1px solid var(--hair);
   }
 
@@ -369,49 +330,50 @@
     font-size:clamp(14px,1.4vw,18px);
     margin-top:clamp(6px,1vh,10px);
   }
-  .studio-gallery{
-    display:flex;flex-direction:column;
-    gap:clamp(18px,3vw,32px);
+  /* ── contact sheet: 5 × 2 grid, DM Mono captions ── */
+  .studio-contact{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:clamp(16px,2.2vw,32px);
+    max-width:1080px;
     margin:clamp(28px,4.5vh,48px) auto 0;
-    max-width:820px;
   }
-  .studio-row{
-    display:flex;justify-content:center;align-items:flex-end;
-    flex-wrap:wrap;
-    gap:clamp(12px,1.8vw,22px);
+  .contact-cell{
+    display:flex;flex-direction:column;
+    gap:8px;
+    margin:0;
   }
-  .studio-img{
+  .contact-tile{
     position:relative;overflow:hidden;
-    width:130px;aspect-ratio:1/1;
+    aspect-ratio:1/1;
     background:var(--tile);border:1px solid var(--hair);
     cursor:url('images/cursor-brushstroke.png') 32 32,auto;
-    transition:transform .45s cubic-bezier(.2,.7,.2,1);
+    transition:border-color .3s ease;
   }
-  .studio-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-  .studio-img:hover{transform:rotate(0deg) translateY(-6px) scale(1.05);z-index:2}
-  .studio-img:hover img{transform:scale(1.06)}
-
-  /* row 1 — 5 images, same size, scattered rotation + vertical offset only */
-  .row-1 .studio-img:nth-child(1){transform:rotate(-3deg) translateY(6px)}
-  .row-1 .studio-img:nth-child(2){transform:rotate(2deg) translateY(-8px)}
-  .row-1 .studio-img:nth-child(3){transform:rotate(-1deg) translateY(4px)}
-  .row-1 .studio-img:nth-child(4){transform:rotate(3deg) translateY(-4px)}
-  .row-1 .studio-img:nth-child(5){transform:rotate(-2deg) translateY(10px)}
-
-  /* row 2 — 6 images, opposite scatter rhythm */
-  .row-2 .studio-img:nth-child(1){transform:rotate(2deg) translateY(-6px)}
-  .row-2 .studio-img:nth-child(2){transform:rotate(-3deg) translateY(8px)}
-  .row-2 .studio-img:nth-child(3){transform:rotate(1deg) translateY(-10px)}
-  .row-2 .studio-img:nth-child(4){transform:rotate(-2deg) translateY(5px)}
-  .row-2 .studio-img:nth-child(5){transform:rotate(3deg) translateY(-4px)}
-  .row-2 .studio-img:nth-child(6){transform:rotate(-1deg) translateY(7px)}
-
-  @media(max-width:700px){
-    .studio-img{width:26vw !important;transform:none !important}
-    .studio-img:hover{transform:translateY(-4px) scale(1.05) !important}
+  .contact-tile img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .55s cubic-bezier(.2,.7,.2,1);
+  }
+  .contact-tile:hover{border-color:var(--ink)}
+  .contact-tile:hover img{transform:scale(1.04)}
+  .contact-cell figcaption{
+    font-family:'DM Mono','Courier New',monospace;
+    font-weight:300;
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-align:left;
   }
 
-  .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}}
+  @media(max-width:820px){
+    .studio-contact{grid-template-columns:repeat(3, 1fr)}
+  }
+  @media(max-width:520px){
+    .studio-contact{grid-template-columns:repeat(2, 1fr)}
+  }
+
+  .footer-centre{justify-content:flex-start}.footer-legal{justify-content:flex-start}
 
 /* ── FOOTER ── */
   .site-footer{border-top:1px solid var(--hair);padding:clamp(16px,2.5vh,28px) 0 clamp(12px,2vh,20px);margin-top:auto}
@@ -426,7 +388,7 @@
   .footer-legal{display:flex;gap:16px;justify-content:flex-end;flex-wrap:wrap}
   .footer-legal a{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .25s;white-space:nowrap}
   .footer-legal a:hover{color:var(--ink)}
-  @media(max-width:700px){.footer-inner{grid-template-columns:1fr;gap:10px}
+  @media(max-width:700px){.footer-inner{grid-template-columns:1fr;gap:10px}}
 </style>
 </head>
 <body>
@@ -454,50 +416,63 @@
     </header>
 
   <div class="ap-page">
-    <section class="main-grid">
-      <p class="site-intro"><span class="ri">Artist</span> <span class="no">Positions</span> <span class="it">is</span> <span class="no">the</span> <span class="it">home</span> <span class="ri">of</span> <span class="it">Zdeněk</span> <span class="ri">Konvalina's</span> <span class="no">painting</span> <span class="it">practice</span> — <span class="ri">the</span> <span class="no">thinking,</span> <span class="it">studies</span> <span class="ri">side,</span> <span class="no">before</span> <span class="it">the</span> <span class="ri">ideas</span> <span class="no">fully</span> <span class="it">develop;</span> <span class="ri">a</span> <span class="no">place</span> <span class="it">to</span> <span class="ri">see</span> <span class="no">the</span> <span class="it">work</span> <span class="ri">as</span> <span class="no">it</span> <span class="it">moves</span> <span class="ri">from</span> <span class="no">first</span> <span class="it">mark</span> <span class="ri">to</span> <span class="no">finished</span> <span class="it">piece.</span></p>
+    <p class="site-intro"><span class="ri">An</span> <span class="no">artist's</span> <span class="it">position</span> <span class="ri">isn't</span> <span class="no">a</span> <span class="it">single</span> <span class="ri">stance.</span> <span class="no">It's</span> <span class="it">a</span> <span class="ri">run</span> <span class="no">of</span> <span class="it">them,</span> <span class="ri">each</span> <span class="no">one</span> <span class="it">worked</span> <span class="ri">out</span> <span class="no">small</span> <span class="it">before</span> <span class="ri">it</span> <span class="no">turns</span> <span class="it">into</span> <span class="ri">anything</span> <span class="no">larger</span> — <span class="it">a</span> <span class="ri">series,</span> <span class="no">a</span> <span class="it">body</span> <span class="ri">of</span> <span class="no">work,</span> <span class="it">a</span> <span class="ri">way</span> <span class="no">of</span> <span class="it">painting.</span> <span class="ri">The</span> <span class="no">studies</span> <span class="it">collected</span> <span class="ri">here</span> <span class="no">are</span> <span class="it">those</span> <span class="ri">positions,</span> <span class="no">taken</span> <span class="it">and</span> <span class="ri">re-taken</span> <span class="no">over</span> <span class="it">months</span> <span class="ri">of</span> <span class="no">studio</span> <span class="it">work:</span> <span class="ri">small</span> <span class="no">canvases</span> <span class="it">where</span> <span class="ri">an</span> <span class="no">idea</span> <span class="it">is</span> <span class="ri">still</span> <span class="no">figuring</span> <span class="it">out</span> <span class="ri">what</span> <span class="no">it</span> <span class="it">wants</span> <span class="ri">to</span> <span class="no">be.</span></p>
 
-      <div class="phil-col">
-        <!-- Born Move Live -->
-        <div class="philosophy">
-          <div class="phil"><span class="dim">be</span><span class="core">Born</span><span class="hide"> — to begin</span></div>
-          <div class="phil"><span class="dim">be</span><span class="core">Move</span><span class="dim">d</span><span class="hide"> — to feel</span></div>
-          <div class="phil"><span class="dim">be</span><span class="core">Li</span><span class="dim">e</span><span class="core">ve</span><span class="hide"> — to trust</span></div>
-        </div>
-      </div>
+    <p class="site-intro"><span class="it">This</span> <span class="ri">starts</span> <span class="no">with</span> <span class="it">my</span> <span class="ri">own.</span> <span class="no">Over</span> <span class="it">time</span> <span class="ri">I'd</span> <span class="no">like</span> <span class="it">it</span> <span class="ri">to</span> <span class="no">open</span> <span class="it">onto</span> <span class="ri">something</span> <span class="no">wider</span> — <span class="it">an</span> <span class="ri">artist</span> <span class="no">floor,</span> <span class="it">so</span> <span class="ri">to</span> <span class="no">speak,</span> <span class="it">where</span> <span class="ri">small</span> <span class="no">studies</span> <span class="it">by</span> <span class="ri">other</span> <span class="no">painters</span> <span class="it">can</span> <span class="ri">live</span> <span class="no">alongside</span> <span class="it">mine.</span> <span class="ri">Studies</span> <span class="no">rarely</span> <span class="it">make</span> <span class="ri">it</span> <span class="no">to</span> <span class="it">a</span> <span class="ri">wall.</span> <span class="no">They</span> <span class="it">get</span> <span class="ri">stacked,</span> <span class="no">painted</span> <span class="it">over,</span> <span class="ri">kept</span> <span class="no">in</span> <span class="it">a</span> <span class="ri">drawer.</span> <span class="no">Giving</span> <span class="it">them</span> <span class="ri">their</span> <span class="no">own</span> <span class="it">floor</span> <span class="ri">felt</span> <span class="no">like</span> <span class="it">the</span> <span class="ri">right</span> <span class="no">place</span> <span class="it">to</span> <span class="ri">begin.</span></p>
 
-      <div class="phil-bracket" aria-hidden="true">
-        <img src="images/about/bracket-brushstroke.png" alt="">
-      </div>
-
-      <div class="artwork-col">
-        <div class="artwork-frame">
-          <img src="images/about/typography.jpg" alt="Typographic study">
-        </div>
-      </div>
-    </section>
+    <!-- Born Move Live — recessed watermark -->
+    <div class="philosophy">
+      <div class="phil"><span class="dim">be</span><span class="core">Born</span><span class="hide"> — to begin</span></div>
+      <div class="phil"><span class="dim">be</span><span class="core">Move</span><span class="dim">d</span><span class="hide"> — to feel</span></div>
+      <div class="phil"><span class="dim">be</span><span class="core">Li</span><span class="dim">e</span><span class="core">ve</span><span class="hide"> — to trust</span></div>
+    </div>
   </div>
 
   <div class="about-meta">
     <h2 class="studio-title">Studio</h2>
     <p class="studio-sub">thinking, creating, breathing space</p>
 
-    <div class="studio-gallery">
-      <div class="studio-row row-1">
-        <div class="studio-img"><img src="images/studio/studio-1.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-2.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-3.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-4.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-5.jpg" alt="Studio — process shot"></div>
-      </div>
-      <div class="studio-row row-2">
-        <div class="studio-img"><img src="images/studio/studio-6.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-7.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-8.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-9.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-10.jpg" alt="Studio — process shot"></div>
-        <div class="studio-img"><img src="images/studio/studio-11.jpg" alt="Studio — process shot"></div>
-      </div>
+    <div class="studio-contact">
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-1.jpg" alt="Studio — process shot 01"></div>
+        <figcaption>Studio / 01</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-2.jpg" alt="Studio — process shot 02"></div>
+        <figcaption>Studio / 02</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-3.jpg" alt="Studio — process shot 03"></div>
+        <figcaption>Studio / 03</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-4.jpg" alt="Studio — process shot 04"></div>
+        <figcaption>Studio / 04</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-5.jpg" alt="Studio — process shot 05"></div>
+        <figcaption>Studio / 05</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-6.jpg" alt="Studio — process shot 06"></div>
+        <figcaption>Studio / 06</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-7.jpg" alt="Studio — process shot 07"></div>
+        <figcaption>Studio / 07</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-8.jpg" alt="Studio — process shot 08"></div>
+        <figcaption>Studio / 08</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-9.jpg" alt="Studio — process shot 09"></div>
+        <figcaption>Studio / 09</figcaption>
+      </figure>
+      <figure class="contact-cell">
+        <div class="contact-tile"><img src="images/studio/studio-10.jpg" alt="Studio — process shot 10"></div>
+        <figcaption>Studio / 10</figcaption>
+      </figure>
     </div>
   </div>
 
