@@ -221,7 +221,9 @@
   .ov-dl div{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--hair)}
   .ov-dl dt{width:8em;flex:none;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:1px}
   .ov-dl dd{font-size:13px;font-weight:300;line-height:1.5}
-  .ov-trust{margin-top:10px;font-size:11px;color:var(--ink-soft);letter-spacing:.03em;line-height:1.7}
+  .ov-price-block{}
+  .ov-price-amount{font-size:16px;font-weight:700;color:var(--ink)}
+  .ov-studio-line{margin-top:5px;font-size:11px;letter-spacing:.04em;color:var(--ink);line-height:1.5}
   .ov-enquire{margin-top:24px;padding-top:18px;border-top:2px solid var(--ink)}
   .ov-statement{font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.5;max-width:32ch;margin-bottom:16px}
   .ov-statement em{font-style:italic;color:var(--red)}
@@ -247,20 +249,13 @@
   .ov-panel.open{max-height:900px}
   .ov-panel-inner{
     --frame-w:44px;
-    position:relative;
     margin:6px 0 20px;
+    border-style:solid;border-width:var(--frame-w);
+    border-image:url('images/border-frame-red-brushstroke.png') 300 stretch;
     padding:22px 18px;
     display:flex;flex-direction:column;
-  }
-  .ov-panel-inner::before{
-    content:'';
-    position:absolute;
-    inset:calc(var(--frame-w) * -1);
-    border-style:solid;
-    border-width:var(--frame-w);
-    border-image:url('images/border-frame-red-brushstroke.png') 300 stretch;
-    pointer-events:none;
-    z-index:1;
+    position:relative;z-index:0;
+    background:var(--paper);
   }
   .ov-panel-statement{font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.5;color:var(--ink);margin:0 0 14px;max-width:32ch}
   .ov-field{margin-bottom:11px}
@@ -279,8 +274,8 @@
   .ov-submit:hover{background:var(--red)}
   .ov-about{margin-top:20px;padding-top:16px}
   .ov-about.empty{display:none}
-  .ov-about-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
-  .ov-about-text{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;line-height:1.6;color:var(--ink);white-space:pre-line}
+  .ov-about-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
+  .ov-about-text{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;color:var(--ink);white-space:pre-line}
   @media(max-width:480px){
     .ov-panel-inner{--frame-w:28px;padding:16px 14px}
     .ov-row2{grid-template-columns:1fr;gap:0}
@@ -381,13 +376,19 @@
       <h2 class="ov-title" id="ovTitle"></h2>
       <span class="ov-year" id="ovYear"></span>
       <dl class="ov-dl" id="ovDl"></dl>
-      <p class="ov-trust">Documented · Studio of Zdeněk Konvalina · Signed, certificate on acquisition.</p>
+      <div class="ov-price-block">
+        <div style="display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--hair)">
+          <dt style="width:8em;flex:none;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:1px">Price</dt>
+          <dd id="ovPrice" style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.3"></dd>
+        </div>
+        <div class="ov-studio-line" style="padding:9px 0">Studio of Zdeněk Konvalina · Signed, certificate on acquisition</div>
+      </div>
       <div class="ov-enquire">
         <p class="ov-statement">You've stopped on this one. <em>Owning work can begin quietly</em> — with something still warm from the studio.</p>
         <div class="ov-actions">
           <div class="ov-action-row">
             <button class="ov-action-btn" id="btnInquire">
-              <span>Inquire to acquire</span>
+              <span>Inquire? Questions?</span>
               <span class="ov-plus" aria-hidden="true"></span>
             </button>
             <div class="ov-panel" id="panelInquire">
@@ -402,11 +403,11 @@
                   <input type="text" inputmode="email" id="inqEmail" autocomplete="off">
                 </div>
                 <div class="ov-field">
-                  <label>Message (optional)</label>
+                  <label>Message</label>
                   <textarea rows="2" id="inqMessage"></textarea>
                 </div>
                 <div class="ov-submit-wrap">
-                  <button class="ov-submit" id="btnInquireSubmit">Send inquiry</button>
+                  <button class="ov-submit" id="btnInquireSubmit">Send Message</button>
                   <div class="ov-feedback" id="inqFeedback"></div>
                 </div>
               </div>
@@ -419,7 +420,7 @@
             </button>
             <div class="ov-panel" id="panelReserve">
               <div class="ov-panel-inner">
-                <p class="ov-panel-statement">I'll follow up with a payment request and shipping details, by hand.</p>
+                <p class="ov-panel-statement">I'll follow up with a payment and shipping details, by hand.</p>
                 <div class="ov-field">
                   <label>Name</label>
                   <input type="text" id="resName" autocomplete="off">
@@ -438,8 +439,12 @@
                   <label>Shipping address</label>
                   <input type="text" id="resAddress" autocomplete="off">
                 </div>
+                <div class="ov-field">
+                  <label>Message</label>
+                  <textarea rows="2" id="resMessage"></textarea>
+                </div>
                 <div class="ov-submit-wrap">
-                  <button class="ov-submit" id="btnReserveSubmit">Request reservation</button>
+                  <button class="ov-submit" id="btnReserveSubmit">Send Message</button>
                   <div class="ov-feedback" id="resFeedback"></div>
                 </div>
               </div>
@@ -584,7 +589,8 @@
       name:    document.getElementById('resName').value,
       email:   document.getElementById('resEmail').value,
       phone:   document.getElementById('resPhone').value,
-      address: document.getElementById('resAddress').value
+      address: document.getElementById('resAddress').value,
+      message: document.getElementById('resMessage').value
     }, this, document.getElementById('resFeedback'));
   });
 
@@ -609,8 +615,8 @@
     document.getElementById('ovDl').innerHTML=
       `<div><dt>Medium</dt><dd>${w.medium}</dd></div>`+
       `<div><dt>Dimensions</dt><dd>${w.size}</dd></div>`+
-      `<div><dt>Status</dt><dd>${w.status}</dd></div>`+
-      `<div><dt>Price</dt><dd>${w.price}</dd></div>`;
+      `<div><dt>Status</dt><dd>${w.status}</dd></div>`;
+    document.getElementById('ovPrice').textContent=w.price||'';
     if (w.about && w.about.trim()) {
       ovAbout.classList.remove('empty');
       ovAbout.innerHTML = '<p class="ov-about-label">Few thoughts about the work</p><p class="ov-about-text">' + w.about + '</p>';
@@ -622,14 +628,14 @@
       document.getElementById(id).classList.remove('open');
     });
     // reset form fields and feedback
-    ['inqName','inqEmail','inqMessage','resName','resEmail','resPhone','resAddress'].forEach(function(id){
+    ['inqName','inqEmail','inqMessage','resName','resEmail','resPhone','resAddress','resMessage'].forEach(function(id){
       var el=document.getElementById(id); if(el) el.value='';
     });
     ['inqFeedback','resFeedback'].forEach(function(id){
       var el=document.getElementById(id); if(el){el.style.display='none';el.className='ov-feedback';}
     });
     ['btnInquireSubmit','btnReserveSubmit'].forEach(function(id){
-      var el=document.getElementById(id); if(el){el.disabled=false;el.textContent=id==='btnInquireSubmit'?'Send inquiry':'Request reservation';}
+      var el=document.getElementById(id); if(el){el.disabled=false;el.textContent='Send Message';}
     });
     lastFocus=document.activeElement;
     overlay.classList.add('open');
