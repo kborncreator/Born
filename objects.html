@@ -249,8 +249,6 @@
     border-image:url('images/border-frame-red-brushstroke.png') 300 stretch;
     padding:22px 18px;
     display:flex;flex-direction:column;
-    position:relative;z-index:0;
-    background:var(--paper);
   }
   .ov-panel-statement{font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.5;color:var(--ink);margin:0 0 14px;max-width:32ch}
   .ov-field{margin-bottom:11px}
@@ -267,17 +265,10 @@
     letter-spacing:.03em;cursor:url('images/cursor-brushstroke.png') 32 32,auto;transition:background .3s;
   }
   .ov-submit:hover{background:var(--red)}
-  .ov-price-block{}
-  .ov-price-amount{font-size:16px;font-weight:700;color:var(--ink)}
-  .ov-studio-line{margin-top:5px;font-size:11px;letter-spacing:.04em;color:var(--ink);line-height:1.5}
-  .ov-submit-wrap{position:relative}
-  .ov-feedback{display:none;margin-top:10px;font-size:13px;font-family:'Playfair Display',Georgia,serif;font-style:italic;line-height:1.5}
-  .ov-feedback.success{color:var(--ink)}
-  .ov-feedback.error{color:var(--red)}
   .ov-about{margin-top:20px;padding-top:16px}
   .ov-about.empty{display:none}
-  .ov-about-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
-  .ov-about-text{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;color:var(--ink);white-space:pre-line}
+  .ov-about-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+  .ov-about-text{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:14px;line-height:1.6;color:var(--ink);white-space:pre-line}
   @media(max-width:480px){
     .ov-panel-inner{--frame-w:28px;padding:16px 14px}
     .ov-row2{grid-template-columns:1fr;gap:0}
@@ -380,13 +371,7 @@
       <h2 class="ov-title" id="ovTitle"></h2>
       <span class="ov-year" id="ovYear"></span>
       <dl class="ov-dl" id="ovDl"></dl>
-      <div class="ov-price-block">
-        <div style="display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--hair)">
-          <dt style="width:8em;flex:none;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:1px">Price</dt>
-          <dd id="ovPrice" style="font-size:16px;font-weight:700;color:var(--ink);line-height:1.3"></dd>
-        </div>
-        <div class="ov-studio-line" style="padding:9px 0">Studio of Zdeněk Konvalina · Signed, certificate on acquisition</div>
-      </div>
+      <p class="ov-trust">Documented · Studio of Zdeněk Konvalina · Signed, certificate on acquisition.</p>
       <!-- LOCKED COMPONENT — Inquire/Reserve artwork-detail block.
            Do not redesign, restyle, or restructure without an explicit
            request. This includes: button wording, bold/italic/uppercase
@@ -400,7 +385,7 @@
         <div class="ov-actions">
           <div class="ov-action-row">
             <button class="ov-action-btn" id="btnInquire">
-              <span>Inquire? Questions?</span>
+              <span>Inquire to acquire</span>
               <span class="ov-plus" aria-hidden="true"></span>
             </button>
             <div class="ov-panel" id="panelInquire">
@@ -408,20 +393,17 @@
                 <p class="ov-panel-statement">A short note is enough — I'll reply directly.</p>
                 <div class="ov-field">
                   <label>Name</label>
-                  <input type="text" id="inqName">
+                  <input type="text">
                 </div>
                 <div class="ov-field">
                   <label>Email</label>
-                  <input type="email" id="inqEmail">
+                  <input type="email">
                 </div>
                 <div class="ov-field">
-                  <label>Message</label>
-                  <textarea rows="2" id="inqMessage"></textarea>
+                  <label>Message (optional)</label>
+                  <textarea rows="2"></textarea>
                 </div>
-                <div class="ov-submit-wrap">
-                  <button class="ov-submit" id="btnInquireSubmit">Send Message</button>
-                  <div class="ov-feedback" id="inqFeedback"></div>
-                </div>
+                <button class="ov-submit">Send inquiry</button>
               </div>
             </div>
           </div>
@@ -432,33 +414,26 @@
             </button>
             <div class="ov-panel" id="panelReserve">
               <div class="ov-panel-inner">
-                <p class="ov-panel-statement">I'll follow up with a payment and shipping details, by hand.</p>
+                <p class="ov-panel-statement">I'll follow up with a payment request and shipping details, by hand.</p>
                 <div class="ov-field">
                   <label>Name</label>
-                  <input type="text" id="resName">
+                  <input type="text">
                 </div>
                 <div class="ov-row2">
                   <div class="ov-field">
                     <label>Email</label>
-                    <input type="email" id="resEmail">
+                    <input type="email">
                   </div>
                   <div class="ov-field">
                     <label>Phone</label>
-                    <input type="text" id="resPhone">
+                    <input type="text">
                   </div>
                 </div>
                 <div class="ov-field">
                   <label>Shipping address</label>
-                  <input type="text" id="resAddress">
+                  <input type="text">
                 </div>
-                <div class="ov-field">
-                  <label>Message</label>
-                  <textarea rows="2" id="resMessage"></textarea>
-                </div>
-                <div class="ov-submit-wrap">
-                  <button class="ov-submit" id="btnReserveSubmit">Send Message</button>
-                  <div class="ov-feedback" id="resFeedback"></div>
-                </div>
+                <button class="ov-submit">Request reservation</button>
               </div>
             </div>
           </div>
@@ -498,45 +473,10 @@
     }
   ];
 
-  var WORKER_URL = 'https://ap-contact.YOUR-SUBDOMAIN.workers.dev'; // replace after Worker deploy
-
-  var grid, overlay, ovImg, ovThumbs, ovTitle, ovYear, ovDl, ovAbout, ovClose, ovPrice;
+  var grid, overlay, ovImg, ovThumbs, ovTitle, ovYear, ovDl, ovAbout, ovClose;
   var ovPrev, ovNext, lightbox, lbImg, lbClose, lbPrev, lbNext;
   var lastFocus = null, lbLastFocus = null;
   var currentImages = [], currentIndex = 0;
-  var currentWork = null;
-
-  function sendForm(type, fields, btnEl, feedbackEl) {
-    btnEl.disabled = true;
-    btnEl.textContent = 'Sending…';
-    feedbackEl.style.display = 'none';
-    feedbackEl.className = 'ov-feedback';
-
-    var payload = Object.assign({ type: type, artwork: currentWork ? currentWork.title : '' }, fields);
-
-    fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(function(r) {
-      if (!r.ok) throw new Error('Server error');
-      return r.json();
-    })
-    .then(function() {
-      feedbackEl.textContent = 'Message sent \u2014 I\'ll be in touch soon.';
-      feedbackEl.classList.add('success');
-      feedbackEl.style.display = 'block';
-      btnEl.textContent = 'Sent';
-    })
-    .catch(function() {
-      feedbackEl.textContent = 'Something went wrong — please email konvalina@me.com directly.';
-      feedbackEl.classList.add('error');
-      feedbackEl.style.display = 'block';
-      btnEl.disabled = false;
-      btnEl.textContent = 'Send Message';
-    });
-  }
 
   function showImage(idx) {
     if (!currentImages.length) return;
@@ -587,7 +527,6 @@
     ovDl       = document.getElementById('ovDl');
     ovAbout    = document.getElementById('ovAbout');
     ovClose    = document.getElementById('ovClose');
-    ovPrice    = document.getElementById('ovPrice');
     ovPrev     = document.getElementById('ovPrev');
     ovNext     = document.getElementById('ovNext');
     lightbox   = document.getElementById('lightbox');
@@ -636,28 +575,74 @@
 
     wireAccordion('btnInquire', 'panelInquire', 'btnReserve', 'panelReserve');
     wireAccordion('btnReserve', 'panelReserve', 'btnInquire', 'panelInquire');
+    wireSubmit('panelInquire', 'inquire');
+    wireSubmit('panelReserve', 'reserve');
+  }
 
-    document.getElementById('btnInquireSubmit').addEventListener('click', function() {
-      sendForm('inquire', {
-        name:    document.getElementById('inqName').value,
-        email:   document.getElementById('inqEmail').value,
-        message: document.getElementById('inqMessage').value
-      }, this, document.getElementById('inqFeedback'));
-    });
+  var WORKER_URL = 'https://ap-contact.konvalina.workers.dev';
+  var currentArtwork = '';
 
-    document.getElementById('btnReserveSubmit').addEventListener('click', function() {
-      sendForm('reserve', {
-        name:    document.getElementById('resName').value,
-        email:   document.getElementById('resEmail').value,
-        phone:   document.getElementById('resPhone').value,
-        address: document.getElementById('resAddress').value,
-        message: document.getElementById('resMessage').value
-      }, this, document.getElementById('resFeedback'));
+  function wireSubmit(panelId, type) {
+    var panel = document.getElementById(panelId);
+    var btn = panel.querySelector('.ov-submit');
+    btn.addEventListener('click', function() {
+      var inputs = panel.querySelectorAll('input, textarea');
+      var name    = inputs[0] ? inputs[0].value.trim() : '';
+      var email   = inputs[1] ? inputs[1].value.trim() : '';
+      var extra1  = inputs[2] ? inputs[2].value.trim() : '';
+      var extra2  = inputs[3] ? inputs[3].value.trim() : '';
+
+      if (!name || !email) {
+        showSubmitMsg(btn, 'Please fill in name and email.', false);
+        return;
+      }
+
+      var payload = { type: type, artwork: currentArtwork, name: name, email: email };
+      if (type === 'inquire') {
+        payload.message = extra1;
+      } else {
+        payload.phone   = extra1;
+        payload.address = extra2;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          showSubmitMsg(btn, '✓ Sent. Zdeněk will be in touch.', true);
+          panel.querySelectorAll('input, textarea').forEach(function(f) { f.value = ''; });
+        } else {
+          showSubmitMsg(btn, 'Something went wrong — try emailing directly.', false);
+        }
+      })
+      .catch(function() {
+        showSubmitMsg(btn, 'Connection error — try again.', false);
+      })
+      .finally(function() {
+        btn.disabled = false;
+      });
     });
   }
 
+  function showSubmitMsg(btn, msg, success) {
+    var existing = btn.parentElement.querySelector('.ov-msg');
+    if (existing) existing.remove();
+    var el = document.createElement('p');
+    el.className = 'ov-msg';
+    el.textContent = msg;
+    el.style.cssText = 'font-family:"Playfair Display",serif;font-style:italic;font-size:13px;margin-top:10px;color:' + (success ? 'var(--ink)' : 'var(--red)');
+    btn.insertAdjacentElement('afterend', el);
+  }
+
   function openWork(w, i) {
-    currentWork = w;
+    currentArtwork = w.title;
     currentImages = [w.img].concat(w.thumbs || []).filter(Boolean);
     currentIndex = 0;
     var hasNav = currentImages.length > 1;
@@ -681,9 +666,8 @@
     ovDl.innerHTML =
       '<div><dt>Medium</dt><dd>' + w.medium + '</dd></div>' +
       '<div><dt>Dimensions</dt><dd>' + w.size + '</dd></div>' +
-      '<div><dt>Status</dt><dd>' + w.status + '</dd></div>';
-    ovPrice.textContent = w.price || '';
-
+      '<div><dt>Status</dt><dd>' + w.status + '</dd></div>' +
+      '<div><dt>Price</dt><dd>' + w.price + '</dd></div>';
     if (w.about && w.about.trim()) {
       ovAbout.classList.remove('empty');
       ovAbout.innerHTML = '<p class="ov-about-label">Few thoughts about the work</p><p class="ov-about-text">' + w.about + '</p>';
@@ -691,18 +675,6 @@
       ovAbout.classList.add('empty');
       ovAbout.innerHTML = '';
     }
-
-    // reset forms
-    ['inqName','inqEmail','inqMessage','resName','resEmail','resPhone','resAddress','resMessage'].forEach(function(id){
-      var el = document.getElementById(id); if (el) el.value = '';
-    });
-    ['inqFeedback','resFeedback'].forEach(function(id){
-      var el = document.getElementById(id); if (el) { el.style.display='none'; el.className='ov-feedback'; }
-    });
-    ['btnInquireSubmit','btnReserveSubmit'].forEach(function(id){
-      var el = document.getElementById(id); if (el) { el.disabled=false; el.textContent='Send Message'; }
-    });
-
     ['panelInquire','panelReserve','btnInquire','btnReserve'].forEach(function(id){
       document.getElementById(id).classList.remove('open');
     });
