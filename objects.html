@@ -656,7 +656,12 @@
     });
   }
 
+  function toSlug(title) {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
   function openWork(w, i) {
+    history.replaceState(null, '', '#' + toSlug(w.title));
     currentWork = w;
     currentImages = [w.img].concat(w.thumbs || []).filter(Boolean);
     currentIndex = 0;
@@ -716,13 +721,26 @@
     overlay.classList.remove('open');
     document.body.classList.remove('ov-open');
     document.body.style.overflow = '';
+    history.replaceState(null, '', window.location.pathname);
     if (lastFocus) { try { lastFocus.focus(); } catch(e) {} }
   }
 
+  function openFromHash() {
+    var hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    for (var i = 0; i < works.length; i++) {
+      if (toSlug(works[i].title) === hash) {
+        openWork(works[i], i);
+        return;
+      }
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function() { init(); openFromHash(); });
   } else {
     init();
+    openFromHash();
   }
 })();
 </script>
