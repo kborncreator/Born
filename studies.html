@@ -395,17 +395,20 @@
                 <p class="ov-panel-statement">A short note is enough — I'll reply directly.</p>
                 <div class="ov-field">
                   <label>Name</label>
-                  <input type="text" autocomplete="off">
+                  <input type="text" id="inqName" autocomplete="off">
                 </div>
                 <div class="ov-field">
                   <label>Email</label>
-                  <input type="text" inputmode="email" autocomplete="off">
+                  <input type="text" inputmode="email" id="inqEmail" autocomplete="off">
                 </div>
                 <div class="ov-field">
                   <label>Message (optional)</label>
-                  <textarea rows="2"></textarea>
+                  <textarea rows="2" id="inqMessage"></textarea>
                 </div>
-                <button class="ov-submit">Send inquiry</button>
+                <div class="ov-submit-wrap">
+                  <button class="ov-submit" id="btnInquireSubmit">Send inquiry</button>
+                  <div class="ov-feedback" id="inqFeedback"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -419,23 +422,26 @@
                 <p class="ov-panel-statement">I'll follow up with a payment request and shipping details, by hand.</p>
                 <div class="ov-field">
                   <label>Name</label>
-                  <input type="text" autocomplete="off">
+                  <input type="text" id="resName" autocomplete="off">
                 </div>
                 <div class="ov-row2">
                   <div class="ov-field">
                     <label>Email</label>
-                    <input type="text" inputmode="email" autocomplete="off">
+                    <input type="text" inputmode="email" id="resEmail" autocomplete="off">
                   </div>
                   <div class="ov-field">
                     <label>Phone</label>
-                    <input type="text" autocomplete="off">
+                    <input type="text" id="resPhone" autocomplete="off">
                   </div>
                 </div>
                 <div class="ov-field">
                   <label>Shipping address</label>
-                  <input type="text" autocomplete="off">
+                  <input type="text" id="resAddress" autocomplete="off">
                 </div>
-                <button class="ov-submit">Request reservation</button>
+                <div class="ov-submit-wrap">
+                  <button class="ov-submit" id="btnReserveSubmit">Request reservation</button>
+                  <div class="ov-feedback" id="resFeedback"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -489,6 +495,36 @@
         lbNext=document.getElementById('lbNext');
   let lastFocus=null, lbLastFocus=null;
   let currentImages=[], currentIndex=0;
+  let currentWork=null;
+
+  const WORKER_URL='https://ap-contact.konvalina.workers.dev';
+
+  function sendForm(type, fields, btnEl, feedbackEl) {
+    btnEl.disabled=true;
+    btnEl.textContent='Sending…';
+    feedbackEl.style.display='none';
+    feedbackEl.className='ov-feedback';
+    const payload=Object.assign({type, artwork: currentWork ? currentWork.title : ''}, fields);
+    fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    })
+    .then(r=>{ if(!r.ok) throw new Error(); return r.json(); })
+    .then(()=>{
+      feedbackEl.textContent='Message sent — I\'ll be in touch soon.';
+      feedbackEl.classList.add('success');
+      feedbackEl.style.display='block';
+      btnEl.textContent='Sent';
+    })
+    .catch(()=>{
+      feedbackEl.textContent='Something went wrong — please email konvalina@me.com directly.';
+      feedbackEl.classList.add('error');
+      feedbackEl.style.display='block';
+      btnEl.disabled=false;
+      btnEl.textContent='Send Message';
+    });
+  }
 
   function showImage(idx){
     if(!currentImages.length) return;
@@ -535,7 +571,25 @@
   wireAccordion('btnInquire','panelInquire','btnReserve','panelReserve');
   wireAccordion('btnReserve','panelReserve','btnInquire','panelInquire');
 
+  document.getElementById('btnInquireSubmit').addEventListener('click', function() {
+    sendForm('inquire', {
+      name:    document.getElementById('inqName').value,
+      email:   document.getElementById('inqEmail').value,
+      message: document.getElementById('inqMessage').value
+    }, this, document.getElementById('inqFeedback'));
+  });
+
+  document.getElementById('btnReserveSubmit').addEventListener('click', function() {
+    sendForm('reserve', {
+      name:    document.getElementById('resName').value,
+      email:   document.getElementById('resEmail').value,
+      phone:   document.getElementById('resPhone').value,
+      address: document.getElementById('resAddress').value
+    }, this, document.getElementById('resFeedback'));
+  });
+
   function openWork(w,i,cat){
+    currentWork=w;
     currentImages=[w.img,...(w.thumbs||[])].filter(Boolean);
     currentIndex=0;
     const hasNav=currentImages.length>1;
