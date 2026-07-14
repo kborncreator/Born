@@ -637,6 +637,15 @@
     ['panelInquire','panelReserve','btnInquire','btnReserve'].forEach(function(id){
       document.getElementById(id).classList.remove('open');
     });
+    ['inqName','inqEmail','inqMessage','resName','resEmail','resPhone','resAddress'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.value='';
+    });
+    ['inqFeedback','resFeedback'].forEach(function(id){
+      var el=document.getElementById(id); if(el){el.style.display='none';el.className='ov-feedback';}
+    });
+    ['btnInquireSubmit','btnReserveSubmit'].forEach(function(id){
+      var el=document.getElementById(id); if(el){el.disabled=false;el.textContent=id==='btnInquireSubmit'?'Send inquiry':'Request reservation';}
+    });
     lastFocus=document.activeElement;
     overlay.classList.add('open');
     document.body.classList.add('ov-open');
