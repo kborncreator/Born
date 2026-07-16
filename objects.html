@@ -383,7 +383,10 @@
       <div class="ov-price-block">
         <div style="display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--hair)">
           <dt style="width:8em;flex:none;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:1px">Price</dt>
-          <dd id="ovPrice" style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.3"></dd>
+          <dd style="display:flex;flex-direction:column;gap:3px">
+            <span id="ovPrice" style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.3"></span>
+            <span style="font-size:11px;font-weight:300;color:var(--ink-soft);line-height:1.5">VAT included · Free EU Shipping</span>
+          </dd>
         </div>
         <div class="ov-studio-line" style="padding:9px 0">Studio of Zdeněk Konvalina · Signed, certificate on acquisition</div>
       </div>
@@ -498,7 +501,13 @@
     }
   ];
 
-  var WORKER_URL = 'https://ap-contact.YOUR-SUBDOMAIN.workers.dev'; // replace after Worker deploy
+  /* ─────────────────────────────────────────────────────────────
+     INFRASTRUCTURE CONFIG — do not touch when adding artwork.
+     This URL must survive every file edit. If the form ever shows
+     "Something went wrong", check this line first.
+  ───────────────────────────────────────────────────────────── */
+  var WORKER_URL = 'https://ap-contact.konvalina.workers.dev';
+  /* ─────────────────────────────────────────────────────────── */
 
   var grid, overlay, ovImg, ovThumbs, ovTitle, ovYear, ovDl, ovAbout, ovClose, ovPrice;
   var ovPrev, ovNext, lightbox, lbImg, lbClose, lbPrev, lbNext;
